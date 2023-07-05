@@ -3,28 +3,15 @@ import { LoadingButton } from "@mui/lab";
 import { Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import { useState } from "react";
-
-
+import './App.css';// Importa el archivo CSS
 const API_WEATHER = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`;
 
 
 export default function App() {
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({
-    error: false,
-    message: "",
-  });
-const [weather, setWeather] = useState ({
-  city: "",
-  country: "",
-  temp:"",
-  condition:"",
-  icon:"",
-  conditionText:"",
-});
-
-
+  const [error, setError] = useState({ error: false, message: "", });
+  const [weather, setWeather] = useState ({ city: "", country: "", temp:"", condition:"", icon:"", conditionText:"", });
   const onSubmit = async(e) => {
     e.preventDefault();
     setLoading(true);
@@ -47,100 +34,113 @@ const [weather, setWeather] = useState ({
         icon: data.current.condition.icon,
         conditionText: data.current.condition.text,
       });
-
-    } catch (error) {
+    }
+      catch (error) {
       setError({
         error: true,
         message: error.message,
       });
-    } finally {
+    }
+      finally {
       setLoading(false)
     }
   };
+  const styles = {
+    border: "solid 10px #000000",
+    margin: "30px",
+    padding: "30px",
+    borderRadius: "30px",
+    minHeight: '100vh',
+  };
   return (
-  <Container
-    maxWidth="xs"
-    sx={{mt: 2 }}
-  >
-    <Typography
-    variant="h3"
-    component="h1"
-    align="center"
-    gutterBottom
-    >
+    <div className="app-container">
+      <div style={styles}>
+        <Container
+          maxWidth="xs"
+          sx={{mt: 2 }}
+        >
+          <Typography
+          variant="h3"
+          component="h1"
+          align="center"
+          gutterBottom
+          >
 
-    SunshineSage App
-    </Typography>
-    <Box
-      sx={{
-        display: "grid", gap: 2}}
-        component="form"
-        autoComplete="off"
-        onSubmit={onSubmit}
-    >
-      <TextField
-        id="City"
-        label="City"
-        variant="outlined"
-        size="small"
-        required
-        fullWidth
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        error= {error.error}
-        helperText={error.message}
+          SunshineSage App
+          </Typography>
+          <Box
+            sx={{
+              display: "grid", gap: 2}}
+              component="form"
+              autoComplete="off"
+              onSubmit={onSubmit}
 
-      />
-      <LoadingButton
-        type="Submit"
-        variant="contained"
-        loading={loading}
-        loadingIndicator="Cargando..."
-      >
-        buscar
-      </LoadingButton>
-    </Box>
+          >
+            <TextField
+              id="City"
+              label="City"
+              variant="outlined"
+              size="small"
+              required
+              fullWidth
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              error= {error.error}
+              helperText={error.message}
 
-    {weather.city && (
-      <Box
-        sx={{
-          mt: 2,
-          display: "grid",
-          gap: 2,
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h4" component="h2">
-        {weather.city}, {weather.country}
-        </Typography>
-        <Box
-          component="img"
-          alt={weather.conditionText}
-          src={weather.icon}
-          sx={{ margin:"0 auto"}}
-        />
-        <Typography variant="h5" component="h3">
-        {weather.temp}°C
-        </Typography>
+            />
+            <LoadingButton
+              type="Submit"
+              variant="contained"
+              loading={loading}
+              loadingIndicator="Cargando..."
+            >
+              buscar
+            </LoadingButton>
+          </Box>
 
-        <Typography variant="h&" component="h4">
-        {weather.conditionText}°C
-        </Typography>
-      </Box>
-    )}
+          {weather.city && (
+            <Box
+              sx={{
+                mt: 2,
+                display: "grid",
+                gap: 2,
+                textAlign: "center",
+              }}
+            >
+              <Typography variant="h4" component="h2">
+              {weather.city}, {weather.country}
+              </Typography>
+              <Box
+                component="img"
+                alt={weather.conditionText}
+                src={weather.icon}
+                sx={{ margin:"0 auto"}}
+              />
+              <Typography variant="h5" component="h3">
+              {weather.temp}°C
+              </Typography>
 
-    <Typography
-      textAlign="center"
-      sx={{ mt: 2, fontSize: "10px" }}
-    >
-      Powered By:{" "}
-      <a
-        href="http://www.weatherapi.com/"
-        title="Weather API"
-      >
-        WeatherApi.com
-      </a>
-    </Typography>
-  </Container>
+              <Typography variant="h&" component="h4">
+              {weather.conditionText}°C
+              </Typography>
+            </Box>
+          )}
+
+          <Typography
+            textAlign="center"
+            sx={{ mt: 2, fontSize: "10px" }}
+          >
+            Powered By:{" "}
+            <a
+              href="http://www.weatherapi.com/"
+              title="Weather API"
+            >
+              WeatherApi.com
+            </a>
+          </Typography>
+        </Container>
+      </div>
+    </div>
   );
 }
