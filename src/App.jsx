@@ -46,14 +46,22 @@ export default function App() {
     }
   };
   const styles = {
-    border: "solid 10px #000000",
+    border: "solid 10px rgba(0, 100, 0, 0.5)",
     margin: "30px",
     padding: "30px",
     borderRadius: "30px",
     minHeight: '100vh',
   };
+  const borderStyles = {
+    borderWidth: "10px",
+    borderStyle: "solid",
+    borderImage: "linear-gradient(180deg, transparent, transparent), linear-gradient(180deg, #ffffff, #006400)",
+    borderImageSlice: "1",
+    padding: "30px",
+    borderRadius: "30px",
+  };
   return (
-    <div className="app-container">
+    <div className="app-container" >
       <div style={styles}>
         <Container
           maxWidth="xs"
