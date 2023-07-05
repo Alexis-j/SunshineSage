@@ -14,4 +14,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 
 // Estilo global para el body
-document.body.style.background = "linear-gradient(180deg, #ffffff, #87ceeb)";
+document.body.style.background = "#8E9B91";
