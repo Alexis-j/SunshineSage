@@ -1,0 +1,26 @@
+.app-container {
+  border: solid 10px #b6c0b8;
+  margin: 30px;
+  border-radius: 30px;
+  min-height: 95vh;
+}
+.panels{
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.leftpanel {
+  width: 70%;
+  height: 100%;
+}
+
+.rightpanel {
+  width: 30%;
+  height: 100%;
+  background-color: #b6c0b8;
+}
+
+.full-width {
+  width: 100%;
+}

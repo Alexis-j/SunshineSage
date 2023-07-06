@@ -3,6 +3,8 @@ import { Box, Container, TextField, Typography, IconButton } from "@mui/material
 import { useState } from "react";
 import { useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import Anuncio from "./assets/components/Anuncio";
+import AppName from "./assets/components/AppName";
 import './App.css'; // Importa el archivo CSS
 
 const API_WEATHER_CURRENT = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`;
@@ -63,45 +65,25 @@ export default function App() {
     }
   };
 
-  const styles = {
-    border: "solid 10px #B6C0B8",
-    margin: "30px",
-    padding: "30px",
-    borderRadius: "30px",
-    minHeight: "95vh",
-  };
-
-return (
-  <div className="app-container" style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-    <div style={{ ...styles, flex: "1", position: "relative", }}>
-      <Container maxWidth="xs">
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", }}>
-          <Typography variant="h3" component="h2" align="center" gutterBottom>
-            SunshineSage App
-          </Typography>
-          <Box
-            sx={{
-              display: "grid",
-              gap: 2,
-            }}
-            component="form"
-            autoComplete="off"
-            onSubmit={onSubmit}
-          >
-          </Box>
-        </div>
-        </Container>
-          <Typography variant="h2" component="h1" style={{ color: "white", maxHeight:"50px" }}>
-              {weather.conditionText}
-          </Typography>
-          <div style={{ ...styles, width: "30%", position: "absolute",top:"-5.8%", right:"-3.6%", height: 100, backgroundColor:"#B6C0B8", borderRadius: "0 15px 15px 0"}}>
+  return (
+    <div className="app">
+      <div className="app-container">
+        <div className="panels">
+          <div className="leftpanel">
+            <AppName />
+            <div>
+              <Typography variant="h2" component="h1" style={{ color: "white", maxHeight: "50px" }}>
+                {weather.conditionText}
+              </Typography>
+            </div>
+          </div>
+          <div className="rightpanel">
             <TextField
               id="City"
               label="City"
               variant="outlined"
-              size="small"
               required
-              fullWidth
+              className="full-width"
               value={city}
               onChange={(e) => setCity(e.target.value)}
               error={error.error}
@@ -110,7 +92,6 @@ return (
                 endAdornment: (
                   <IconButton
                     edge="end"
-                    color="primary"
                     aria-label="Buscar"
                     onClick={onSubmit}
                   >
@@ -126,70 +107,75 @@ return (
               }}
               inputRef={inputRef}
             />
-            <Container maxWidth="xs">
-              {weather.city && (
-                <Box
-                  sx={{
-                    display: "grid",
-                    gap: 2,
-                    textAlign: "center",
-                  }}
-                >
-                  <Typography variant="h4" component="h2">
-                    {weather.city}, {weather.country}
-                  </Typography>
+            <div>
+              <Container maxWidth="xs">
+                {weather.city && (
                   <Box
-                    component="img"
-                    alt={weather.conditionText}
-                    src={weather.icon}
-                    sx={{ margin: "0 auto" }}
-                  />
-                  <Typography variant="h5" component="h3">
-                    {weather.temp}°C
-                  </Typography>
-                  <Typography variant="h6" component="h4">
-                    {weather.conditionText}
-                  </Typography>
-                </Box>
-              )}
-              {weather.forecast.length > 0 && (
-                <Box
-                  sx={{
-                    display: "grid",
-                    gap: 2,
-                    textAlign: "center",
-                  }}
-                >
-                  {weather.forecast.map((day) => (
-                    <div key={day.date}>
-                      <Typography variant="h6" component="h3">
-                        {day.date}
-                      </Typography>
-                      <Box
-                        component="img"
-                        alt={day.day.condition.text}
-                        src={day.day.condition.icon}
-                        sx={{ margin: "0 auto" }}
-                      />
-                      <Typography variant="body1" component="p">
-                        {day.day.avgtemp_c}°C
-                      </Typography>
-                      <Typography variant="body2" component="p">
-                        {day.day.condition.text}
-                      </Typography>
-                    </div>
-                  ))}
-                </Box>
-              )}
-              <Typography textAlign="center" sx={{ mt: 2, fontSize: "10px", position: "absolute", top:"90%", left:"30%", }}>
-                Powered By:{" "}
-                <a href="http://www.weatherapi.com/" title="Weather API">
-                  WeatherApi.com
-                </a>
-              </Typography>
-            </Container>
+                    sx={{
+                      display: "grid",
+                      gap: 2,
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography variant="h4" component="h2">
+                      {weather.city}, {weather.country}
+                    </Typography>
+                    <Box
+                      component="img"
+                      alt={weather.conditionText}
+                      src={weather.icon}
+                      sx={{ margin: "0 auto" }}
+                    />
+                    <Typography variant="h5" component="h3">
+                      {weather.temp}°C
+                    </Typography>
+                    <Typography variant="h6" component="h4">
+                      {weather.conditionText}
+                    </Typography>
+                  </Box>
+                )}
+                {weather.forecast.length > 0 && (
+                  <Box
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {weather.forecast.map((day) => (
+                      <div key={day.date}>
+
+                          <Box
+                          sx={{
+                            margin: "30px",
+                            padding: "30px",
+                            borderRadius: "10px",
+                            display: "flex",
+                            bgcolor: "#8E9B91",
+                            minWidth: "75%"
+                          }}
+
+                          >
+                            <Box
+                              component="img"
+                              alt={day.day.condition.text}
+                              src={day.day.condition.icon}
+                            />
+                            <Typography variant="h6" component="h3">
+                              {day.date}
+                            </Typography>
+                            <Typography variant="body1" component="p">
+                              {day.day.avgtemp_c}°C
+                            </Typography>
+                          </Box>
+                      </div>
+                    ))}
+                  </Box>
+                )}
+                <Anuncio />
+              </Container>
+            </div>
           </div>
       </div>
     </div>
+  </div>
   );
 }
