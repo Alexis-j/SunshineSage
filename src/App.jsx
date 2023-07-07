@@ -75,39 +75,42 @@ export default function App() {
               <Typography variant="h2" component="h1" style={{ color: "white", maxHeight: "50px" }}>
                 {weather.conditionText}
               </Typography>
+              <Typography variant="h4" component="h2">
+                {weather.city}, {weather.country}
+              </Typography>
             </div>
           </div>
           <div className="rightpanel">
             <div style={{ display: "flex", alignItems: "center", padding:"30px" }}>
-              <TextField
-                id="City"
-                label="City"
-                variant="outlined"
-                required
-                className="full-width"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                error={error.error}
-                helperText={error.message}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                      edge="end"
-                      aria-label="Buscar"
-                      onClick={onSubmit}
-                    >
-                      <SearchIcon style={{ color: "#ffffff" }} />
-                    </IconButton>
-                  ),
-                  onKeyDown: (e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      onSubmit();
-                    }
+            <TextField
+              id="City"
+              label="City"
+              variant="outlined"
+              required
+              className="full-width"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              error={error.error}
+              helperText={error.message}
+              InputProps={{
+                endAdornment: (
+                  <IconButton
+                    edge="end"
+                    aria-label="Buscar"
+                    onClick={onSubmit}
+                  >
+                    <SearchIcon style={{ color: "#ffffff" }} />
+                  </IconButton>
+                ),
+                onKeyDown: (e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    onSubmit();
                   }
-                }}
-                inputRef={inputRef}
-              />
+                }
+              }}
+              inputRef={inputRef}
+            />
             </div>
             <div>
               <Container maxWidth="xs">
@@ -119,8 +122,8 @@ export default function App() {
                       textAlign: "center",
                     }}
                   >
-                    <Typography variant="h4" component="h2">
-                      {weather.city}, {weather.country}
+                    <Typography variant="h1" component="h3">
+                      {weather.temp}°C
                     </Typography>
                     <Box
                       component="img"
@@ -128,9 +131,6 @@ export default function App() {
                       src={weather.icon}
                       sx={{ margin: "0 auto" }}
                     />
-                    <Typography variant="h5" component="h3">
-                      {weather.temp}°C
-                    </Typography>
                     <Typography variant="h6" component="h4">
                       {weather.conditionText}
                     </Typography>
@@ -161,11 +161,11 @@ export default function App() {
                               alt={day.day.condition.text}
                               src={day.day.condition.icon}
                             />
-                            <Typography variant="h6" component="h3">
-                              {day.date}
-                            </Typography>
                             <Typography variant="body1" component="p">
                               {day.day.avgtemp_c}°C
+                            </Typography>
+                            <Typography variant="h6" component="h3">
+                              {day.date}
                             </Typography>
                           </Box>
                       </div>

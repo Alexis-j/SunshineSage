@@ -1,4 +1,4 @@
-//Header
+//App Name
 import { Typography } from "@mui/material";
 
 export default function AppName() {
