@@ -78,35 +78,37 @@ export default function App() {
             </div>
           </div>
           <div className="rightpanel">
-            <TextField
-              id="City"
-              label="City"
-              variant="outlined"
-              required
-              className="full-width"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              error={error.error}
-              helperText={error.message}
-              InputProps={{
-                endAdornment: (
-                  <IconButton
-                    edge="end"
-                    aria-label="Buscar"
-                    onClick={onSubmit}
-                  >
-                    <SearchIcon style={{ color: "#ffffff" }} />
-                  </IconButton>
-                ),
-                onKeyDown: (e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    onSubmit();
+            <div style={{ display: "flex", alignItems: "center", padding:"30px" }}>
+              <TextField
+                id="City"
+                label="City"
+                variant="outlined"
+                required
+                className="full-width"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                error={error.error}
+                helperText={error.message}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      edge="end"
+                      aria-label="Buscar"
+                      onClick={onSubmit}
+                    >
+                      <SearchIcon style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  ),
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      onSubmit();
+                    }
                   }
-                }
-              }}
-              inputRef={inputRef}
-            />
+                }}
+                inputRef={inputRef}
+              />
+            </div>
             <div>
               <Container maxWidth="xs">
                 {weather.city && (
