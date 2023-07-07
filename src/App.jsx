@@ -173,7 +173,7 @@ export default function App() {
                             </div>
                             <div>
                               <Typography variant="h5" component="h3" sx={{borderLeft: "2px solid", padding: 1}}>
-                                {day.day.avgtemp_c}°C
+                              {day.day.avgtemp_c.toFixed(0)}°C
                               </Typography>
                             </div>
                         </div>
