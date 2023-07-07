@@ -110,6 +110,7 @@ export default function App() {
                 }
               }}
               inputRef={inputRef}
+              sx={{border:"2px"}}
             />
             </div>
             <div>
@@ -141,7 +142,6 @@ export default function App() {
                 {weather.forecast.length > 0 && (
                   <Box
                     sx={{
-                      textAlign: "center",
                     }}
                   >
                     {weather.forecast.map((day) => (
@@ -149,8 +149,8 @@ export default function App() {
 
                           <Box
                           sx={{
-                            margin: "30px",
-                            padding: "30px",
+                            margin: "10px",
+                            padding: "10px",
                             borderRadius: "10px",
                             display: "flex",
                             bgcolor: "#8E9B91",
@@ -158,17 +158,25 @@ export default function App() {
                           }}
 
                           >
-                            <Box
-                              component="img"
-                              alt={day.day.condition.text}
-                              src={day.day.condition.icon}
-                            />
-                            <Typography variant="body1" component="p">
-                              {day.day.avgtemp_c}°C
-                            </Typography>
-                            <Typography variant="h6" component="h3">
-                              {day.date}
-                            </Typography>
+                          <div className="cards">
+                            <div>
+                              <Box
+                                component="img"
+                                alt={day.day.condition.text}
+                                src={day.day.condition.icon}
+                              />
+                            </div>
+                            <div>
+                              <Typography variant="body1" component="p">
+                                {day.date}
+                              </Typography>
+                            </div>
+                            <div>
+                              <Typography variant="h5" component="h3" sx={{borderLeft: "2px solid", padding: 1}}>
+                                {day.day.avgtemp_c}°C
+                              </Typography>
+                            </div>
+                        </div>
                           </Box>
                       </div>
                     ))}

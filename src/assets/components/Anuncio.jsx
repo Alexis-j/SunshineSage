@@ -10,7 +10,7 @@ export default function Anuncio() {
         fontSize: "10px",
         position: "absolute",
         top: "90%",
-        left: "30%",
+        left: "78%",
       }}
     >
       Powered By:{" "}
