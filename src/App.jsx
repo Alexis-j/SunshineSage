@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Anuncio from "./assets/components/Anuncio";
 import AppName from "./assets/components/AppName";
 import './App.css'; // Importa el archivo CSS
+import { BorderBottom } from "@mui/icons-material";
 
 const API_WEATHER_CURRENT = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`;
 const API_WEATHER_FORECAST = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=`;
@@ -70,124 +71,131 @@ export default function App() {
       <div className="app-container">
         <div className="panels">
           <div className="leftpanel">
-            <AppName />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <div>
+                <AppName />
+              </div>
+              <div style={{ marginLeft: "auto" }}>
+                <Typography variant="h6" component="h2" padding="30px">
+                  {weather.city} {weather.country}
+                </Typography>
+              </div>
+            </div>
             <div>
-              <Typography variant="h2" component="h1" style={{ color: "white", maxHeight: "50px" }}>
+              <Typography variant="h1" component="h1" align="right" padding="30% 5% 0 0"style={{ color: "white", maxHeight: "50px" }}>
                 {weather.conditionText}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {weather.city} {weather.country}
-              </Typography>
+              </div>
+          
             </div>
-          </div>
-          <div className="rightpanel">
-            <div style={{ display: "flex", alignItems: "center", padding:"30px" }}>
-            <TextField
-              id="City"
-              label="City"
-              variant="outlined"
-              required
-              className="full-width"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              error={error.error}
-              helperText={error.message}
-              InputProps={{
-                endAdornment: (
-                  <IconButton
-                    edge="end"
-                    aria-label="Buscar"
-                    onClick={onSubmit}
-                  >
-                    <SearchIcon style={{ color: "#ffffff" }} />
-                  </IconButton>
-                ),
-                onKeyDown: (e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    onSubmit();
+            <div className="rightpanel">
+              <div style={{ display: "flex", alignItems: "center", padding:"30px" }}>
+              <TextField
+                id="City"
+                label="City"
+                variant="outlined"
+                required
+                className="full-width"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                error={error.error}
+                helperText={error.message}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      edge="end"
+                      aria-label="Buscar"
+                      onClick={onSubmit}
+                    >
+                      <SearchIcon style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  ),
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      onSubmit();
+                    }
                   }
-                }
-              }}
-              inputRef={inputRef}
-              sx={{border:"2px"}}
-            />
-            </div>
-            <div>
-              <Container maxWidth="xs">
-                {weather.city && (
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gap: 2,
-                      textAlign: "center",
-                    }}
-                  >
-                    <Typography variant="h1" component="h3" sx={{ color:"#ffffff"}}>
-                      {weather.temp}°C
-                    </Typography>
-                    <div className="card">
-                        <Box
-                          component="img"
-                          alt={weather.conditionText}
-                          src={weather.icon}
-                          sx={{ }}
-                        />
-                      <Typography variant="h6" component="h4">
-                        {weather.conditionText}
+                }}
+                inputRef={inputRef}
+                sx={{border:"2px"}}
+              />
+              </div>
+              <div>
+                <Container maxWidth="xs">
+                  {weather.city && (
+                    <Box
+                      sx={{
+                        display: "grid",
+                        gap: 2,
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h1" component="h3" sx={{ color:"#ffffff"}}>
+                        {weather.temp}°C
                       </Typography>
-                    </div>
-                  </Box>
-                )}
-                {weather.forecast.length > 0 && (
-                  <Box
-                    sx={{
-                    }}
-                  >
-                    {weather.forecast.map((day) => (
-                      <div key={day.date}>
-
+                      <div className="card">
                           <Box
-                          sx={{
-                            margin: "10px",
-                            padding: "10px",
-                            borderRadius: "10px",
-                            display: "flex",
-                            bgcolor: "#8E9B91",
-                            minWidth: "75%"
-                          }}
-
-                          >
-                          <div className="cards">
-                            <div>
-                              <Box
-                                component="img"
-                                alt={day.day.condition.text}
-                                src={day.day.condition.icon}
-                              />
-                            </div>
-                            <div>
-                              <Typography variant="body1" component="p">
-                                {day.date}
-                              </Typography>
-                            </div>
-                            <div>
-                              <Typography variant="h5" component="h3" sx={{borderLeft: "2px solid", padding: 1}}>
-                              {day.day.avgtemp_c.toFixed(0)}°C
-                              </Typography>
-                            </div>
-                        </div>
-                          </Box>
+                            component="img"
+                            alt={weather.conditionText}
+                            src={weather.icon}
+                            sx={{ }}
+                          />
+                        <Typography variant="h6" component="h4">
+                          {weather.conditionText}
+                        </Typography>
                       </div>
-                    ))}
-                  </Box>
-                )}
-                <Anuncio />
-              </Container>
+                    </Box>
+                  )}
+                  {weather.forecast.length > 0 && (
+                    <Box
+                      sx={{
+                      }}
+                    >
+                      {weather.forecast.map((day) => (
+                        <div key={day.date}>
+
+                            <Box
+                            sx={{
+                              margin: "10px",
+                              padding: "10px",
+                              borderRadius: "10px",
+                              display: "flex",
+                              bgcolor: "#8E9B91",
+                              minWidth: "75%"
+                            }}
+
+                            >
+                            <div className="cards">
+                              <div>
+                                <Box
+                                  component="img"
+                                  alt={day.day.condition.text}
+                                  src={day.day.condition.icon}
+                                />
+                              </div>
+                              <div>
+                                <Typography variant="body1" component="p">
+                                  {day.date}
+                                </Typography>
+                              </div>
+                              <div>
+                                <Typography variant="h5" component="h3" sx={{borderLeft: "2px solid", padding: 1}}>
+                                {day.day.avgtemp_c.toFixed(0)}°C
+                                </Typography>
+                              </div>
+                          </div>
+                            </Box>
+                        </div>
+                      ))}
+                    </Box>
+                  )}
+                  <Anuncio />
+                </Container>
+              </div>
             </div>
-          </div>
+        </div>
       </div>
-    </div>
   </div>
   );
 }
