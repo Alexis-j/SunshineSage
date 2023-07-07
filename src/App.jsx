@@ -76,7 +76,7 @@ export default function App() {
                 {weather.conditionText}
               </Typography>
               <Typography variant="h4" component="h2">
-                {weather.city}, {weather.country}
+                {weather.city} {weather.country}
               </Typography>
             </div>
           </div>
