@@ -122,18 +122,20 @@ export default function App() {
                       textAlign: "center",
                     }}
                   >
-                    <Typography variant="h1" component="h3">
+                    <Typography variant="h1" component="h3" sx={{ color:"#ffffff"}}>
                       {weather.temp}°C
                     </Typography>
-                    <Box
-                      component="img"
-                      alt={weather.conditionText}
-                      src={weather.icon}
-                      sx={{ margin: "0 auto" }}
-                    />
-                    <Typography variant="h6" component="h4">
-                      {weather.conditionText}
-                    </Typography>
+                    <div className="card">
+                        <Box
+                          component="img"
+                          alt={weather.conditionText}
+                          src={weather.icon}
+                          sx={{ }}
+                        />
+                      <Typography variant="h6" component="h4">
+                        {weather.conditionText}
+                      </Typography>
+                    </div>
                   </Box>
                 )}
                 {weather.forecast.length > 0 && (
