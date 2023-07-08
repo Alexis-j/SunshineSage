@@ -1,10 +1,12 @@
-// console.log(import.meta.env.VITE_API_KEY)
 import { Box, Container, TextField, Typography, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import Anuncio from "./assets/components/Anuncio";
 import AppName from "./assets/components/AppName";
+import sunnyImage from "./assets/components/img/sunny.jpg"; // Importa la imagen para clima soleado
+import rainyImage from "./assets/components/img/Rainy.jpg"; // Importa la imagen para clima soleado
+
 import './App.css'; // Importa el archivo CSS
 import { BorderBottom } from "@mui/icons-material";
 
@@ -26,10 +28,10 @@ export default function App() {
     forecast: [],
   });
 
-    const onSubmit = async () => {
-      event.preventDefault();
-      setLoading(true);
-      setError({ error: false, message: "" });
+  const onSubmit = async () => {
+    event.preventDefault();
+    setLoading(true);
+    setError({ error: false, message: "" });
 
     try {
       if (!city.trim()) {
@@ -70,14 +72,17 @@ export default function App() {
     <div className="app">
       <div className="app-container">
         <div className="panels">
-          <div className="leftpanel">
-            <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="leftpanel" style={{
+            backgroundImage: weather.conditionText === "Sunny" ? `url(${sunnyImage})` : "",
+            backgroundImage: weather.conditionText === "Light rain" ? `url(${rainyImage})` : "",
+            backgroundSize:"cover", }}>
+            <div style={{ display: "flex", alignItems: "center", color:"#ffffff" }}>
               <div>
                 <AppName />
               </div>
               <div style={{ marginLeft: "auto" }}>
                 <Typography variant="h6" component="h2" padding="30px">
-                  {weather.city} {weather.country}
+                  {weather.city} | {weather.country}
                 </Typography>
               </div>
             </div>
@@ -85,11 +90,10 @@ export default function App() {
               <Typography variant="h1" component="h1" align="right" padding="30% 5% 0 0"style={{ color: "white", maxHeight: "50px" }}>
                 {weather.conditionText}
               </Typography>
-              </div>
-          
             </div>
-            <div className="rightpanel">
-              <div style={{ display: "flex", alignItems: "center", padding:"30px" }}>
+          </div>
+          <div className="rightpanel">
+            <div style={{ display: "flex", alignItems: "center", padding:"30px", borderRadius:"0 30px 30px 0"}}>
               <TextField
                 id="City"
                 label="City"
@@ -120,82 +124,80 @@ export default function App() {
                 inputRef={inputRef}
                 sx={{border:"2px"}}
               />
-              </div>
-              <div>
-                <Container maxWidth="xs">
-                  {weather.city && (
-                    <Box
-                      sx={{
-                        display: "grid",
-                        gap: 2,
-                        textAlign: "center",
-                      }}
-                    >
-                      <Typography variant="h1" component="h3" sx={{ color:"#ffffff"}}>
-                        {weather.temp}°C
-                      </Typography>
-                      <div className="card">
-                          <Box
-                            component="img"
-                            alt={weather.conditionText}
-                            src={weather.icon}
-                            sx={{ }}
-                          />
-                        <Typography variant="h6" component="h4">
-                          {weather.conditionText}
-                        </Typography>
-                      </div>
-                    </Box>
-                  )}
-                  {weather.forecast.length > 0 && (
-                    <Box
-                      sx={{
-                      }}
-                    >
-                      {weather.forecast.map((day) => (
-                        <div key={day.date}>
-
-                            <Box
-                            sx={{
-                              margin: "10px",
-                              padding: "10px",
-                              borderRadius: "10px",
-                              display: "flex",
-                              bgcolor: "#8E9B91",
-                              minWidth: "75%"
-                            }}
-
-                            >
-                            <div className="cards">
-                              <div>
-                                <Box
-                                  component="img"
-                                  alt={day.day.condition.text}
-                                  src={day.day.condition.icon}
-                                />
-                              </div>
-                              <div>
-                                <Typography variant="body1" component="p">
-                                  {day.date}
-                                </Typography>
-                              </div>
-                              <div>
-                                <Typography variant="h5" component="h3" sx={{borderLeft: "2px solid", padding: 1}}>
-                                {day.day.avgtemp_c.toFixed(0)}°C
-                                </Typography>
-                              </div>
-                          </div>
-                            </Box>
-                        </div>
-                      ))}
-                    </Box>
-                  )}
-                  <Anuncio />
-                </Container>
-              </div>
             </div>
+            <div>
+              <Container maxWidth="xs">
+                {weather.city && (
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gap: 2,
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography variant="h1" component="h3" sx={{ color:"#ffffff"}}>
+                      {weather.temp}°C
+                    </Typography>
+                    <div className="card">
+                      <Box
+                        component="img"
+                        alt={weather.conditionText}
+                        src={weather.icon}
+                        sx={{ }}
+                      />
+                      <Typography variant="h6" component="h4">
+                        {weather.conditionText}
+                      </Typography>
+                    </div>
+                  </Box>
+                )}
+                {weather.forecast.length > 0 && (
+                  <Box
+                    sx={{
+                    }}
+                  >
+                    {weather.forecast.map((day) => (
+                      <div key={day.date}>
+                        <Box
+                          sx={{
+                            margin: "10px",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            display: "flex",
+                            bgcolor: "#7f89814a",
+                            minWidth: "75%"
+                          }}
+                        >
+                          <div className="cards">
+                            <div>
+                              <Box
+                                component="img"
+                                alt={day.day.condition.text}
+                                src={day.day.condition.icon}
+                              />
+                            </div>
+                            <div>
+                              <Typography variant="body1" component="p">
+                                {day.date}
+                              </Typography>
+                            </div>
+                            <div>
+                              <Typography variant="h5" component="h3" sx={{borderLeft: "2px solid", padding: 1}}>
+                                {day.day.avgtemp_c.toFixed(0)}°C
+                              </Typography>
+                            </div>
+                          </div>
+                        </Box>
+                      </div>
+                    ))}
+                  </Box>
+                )}
+                <Anuncio />
+              </Container>
+            </div>
+          </div>
         </div>
       </div>
-  </div>
+    </div>
   );
 }

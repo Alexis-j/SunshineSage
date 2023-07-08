@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import { CssBaseline } from "@mui/material";
 import { SnackbarProvider } from "notistack";
+import bgImage from "./assets/components/img/bg-img.jpg";
 
 
 import '@fontsource/roboto/300.css'
@@ -37,4 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 
 // Estilo global para el body
-document.body.style.background = "#8E9B91";
+document.body.style.backgroundImage = `url(${bgImage})`;
+document.body.style.backgroundSize = "cover";
+document.body.style.backgroundRepeat = "no-repeat";
+document.body.style.backgroundPosition = "center";
