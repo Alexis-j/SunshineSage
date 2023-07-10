@@ -100,7 +100,7 @@ export default function App() {
                         borderRadius: "10px",
                         display: "flex",
                         bgcolor: "#7f89814a",
-                        Width: "30%"
+                        Width: "100%"
                       }}
                     >
                       <div className="small-cards">
@@ -110,7 +110,7 @@ export default function App() {
                           </Typography>
                         </div>
                         <div>
-                          <Typography variant="h5" component="h3" sx={{ borderLeft: "2px solid", padding: 1 }}>
+                          <Typography variant="h5" component="h3" sx={{ borderTop: "2px solid", padding: 1 }}>
                             {hour.temp_c.toFixed(0)}°C
                           </Typography>
                         </div>
@@ -133,6 +133,7 @@ export default function App() {
 
               >
                 <TextField
+                  padding="5px"
                   id="City"
                   label="City"
                   variant="outlined"
