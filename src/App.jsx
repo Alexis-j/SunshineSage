@@ -1,12 +1,8 @@
+import { useState, useRef } from "react";
 import { Box, Container, TextField, Typography, IconButton } from "@mui/material";
-import { useState } from "react";
-import { useRef } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import Anuncio from "./assets/components/Anuncio";
 import AppName from "./assets/components/AppName";
-
-import './App.css'; // Importa el archivo CSS
-import { BorderBottom } from "@mui/icons-material";
+import Anuncio from "./assets/components/Anuncio";
+import { Search as SearchIcon } from "@mui/icons-material";
 
 const API_WEATHER_CURRENT = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`;
 const API_WEATHER_FORECAST = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=`;
@@ -24,9 +20,10 @@ export default function App() {
     icon: "",
     conditionText: "",
     forecast: [],
+    hourlyForecast: []
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setError({ error: false, message: "" });
@@ -50,6 +47,14 @@ export default function App() {
         throw { message: forecastData.error.message };
       }
 
+      const currentDateTime = new Date();
+      const currentIndex = forecastData.forecast.forecastday[0].hour.findIndex(hour => {
+        const hourDateTime = new Date(hour.time);
+        return hourDateTime > currentDateTime;
+      });
+
+      const hourlyForecast = forecastData.forecast.forecastday[0].hour.slice(currentIndex, currentIndex + 6);
+
       setWeather({
         city: currentData.location.name,
         country: currentData.location.country,
@@ -58,9 +63,13 @@ export default function App() {
         icon: currentData.current.condition.icon,
         conditionText: currentData.current.condition.text,
         forecast: forecastData.forecast.forecastday,
+        hourlyForecast: hourlyForecast
       });
     } catch (error) {
-      setError({ error: true, message: error.message });
+      setError({
+        error: true,
+        message: error.message
+      });
     } finally {
       setLoading(false);
     }
@@ -71,125 +80,139 @@ export default function App() {
       <div className="app-container">
         <div className="panels">
           <div className="leftpanel">
-            <div style={{ display: "flex", alignItems: "center", color:"#ffffff" }}>
-              <div>
-                <AppName />
-              </div>
-              <div style={{ marginLeft: "auto" }}>
-                <Typography variant="h6" component="h2" padding="30px">
-                  {weather.city} | {weather.country}
-                </Typography>
-              </div>
-            </div>
-            <div>
-              <Typography variant="h1" component="h1" align="right" padding="30% 5% 0 0"style={{ color: "white", maxHeight: "50px" }}>
-                {weather.conditionText}
-              </Typography>
-            </div>
+            <AppName />
+            {weather.hourlyForecast.length > 0 && (
+              <Box
+                sx={{
+                  mt: 2,
+                  color: "#ffffff"
+                }}
+              >
+                {weather.hourlyForecast.map((hour) => (
+                  <div key={hour.time}>
+                    <Box
+                      sx={{
+                        margin: "10px",
+                        padding: "10px",
+                        borderRadius: "10px",
+                        display: "flex",
+                        bgcolor: "#7f89814a",
+                        Width: "30%"
+                      }}
+                    >
+                      <div className="small-cards">
+                        <div>
+                          <Typography variant="body1" component="p">
+                            {new Date(hour.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </Typography>
+                        </div>
+                        <div>
+                          <Typography variant="h5" component="h3" sx={{ borderLeft: "2px solid", padding: 1 }}>
+                            {hour.temp_c.toFixed(0)}°C
+                          </Typography>
+                        </div>
+                      </div>
+                    </Box>
+                  </div>
+                ))}
+              </Box>
+            )}
           </div>
           <div className="rightpanel">
-            <div style={{ display: "flex", alignItems: "center", padding:"30px", borderRadius:"0 30px 30px 0"}}>
-              <TextField
-                id="City"
-                label="City"
-                variant="outlined"
-                required
-                className="full-width"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                error={error.error}
-                helperText={error.message}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                      edge="end"
-                      aria-label="Buscar"
-                      onClick={onSubmit}
-                    >
-                      <SearchIcon style={{ color: "#ffffff" }} />
-                    </IconButton>
-                  ),
-                  onKeyDown: (e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      onSubmit();
-                    }
-                  }
+              <Box
+                sx={{
+                  display: "grid",
+                  gap: 2
                 }}
-                inputRef={inputRef}
-                sx={{border:"2px"}}
-              />
-            </div>
-            <div>
-              <Container maxWidth="xs">
-                {weather.city && (
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gap: 2,
-                      textAlign: "center",
-                    }}
-                  >
-                    <Typography variant="h1" component="h3" sx={{ color:"#ffffff"}}>
-                      {weather.temp}°C
+                component="form"
+                autoComplete="off"
+                onSubmit={onSubmit}
+              >
+                <TextField
+                  id="City"
+                  label="City"
+                  variant="outlined"
+                  required
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  error={error.error}
+                  helperText={error.message}
+                  InputProps={{
+                    endAdornment: (
+                      <IconButton edge="end" aria-label="Buscar" onClick={onSubmit}>
+                        <SearchIcon style={{ color: "#ffffff" }} />
+                      </IconButton>
+                    ),
+                    onKeyDown: (e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        onSubmit(e);
+                      }
+                    }
+                  }}
+                  inputRef={inputRef}
+                  sx={{ border: "2px solid", minWidth: "100%" }}
+                />
+              </Box>
+              {weather.city && (
+                <Box
+                  sx={{
+                    mt: 2,
+                    display: "grid",
+                    gap: 2,
+                    textAlign: "center"
+                  }}
+                >
+                  <Typography variant="h1" component="h3" sx={{ color: "#ffffff" }}>
+                    {weather.temp}°C
+                  </Typography>
+                  <div className="card">
+                    <Box component="img" alt={weather.conditionText} src={weather.icon} sx={{}} />
+                    <Typography variant="h6" component="h4">
+                      {weather.conditionText}
                     </Typography>
-                    <div className="card">
+                  </div>
+                </Box>
+              )}
+              {weather.forecast.length > 0 && (
+                <Box
+                  sx={{
+                    mt: 2
+                  }}
+                >
+                  {weather.forecast.map((day) => (
+                    <div key={day.date}>
                       <Box
-                        component="img"
-                        alt={weather.conditionText}
-                        src={weather.icon}
-                        sx={{ }}
-                      />
-                      <Typography variant="h6" component="h4">
-                        {weather.conditionText}
-                      </Typography>
-                    </div>
-                  </Box>
-                )}
-                {weather.forecast.length > 0 && (
-                  <Box
-                    sx={{
-                    }}
-                  >
-                    {weather.forecast.map((day) => (
-                      <div key={day.date}>
-                        <Box
-                          sx={{
-                            margin: "10px",
-                            padding: "10px",
-                            borderRadius: "10px",
-                            display: "flex",
-                            bgcolor: "#7f89814a",
-                            minWidth: "75%"
-                          }}
-                        >
-                          <div className="cards">
-                            <div>
-                              <Box
-                                component="img"
-                                alt={day.day.condition.text}
-                                src={day.day.condition.icon}
-                              />
-                            </div>
-                            <div>
-                              <Typography variant="body1" component="p">
-                                {day.date}
-                              </Typography>
-                            </div>
-                            <div>
-                              <Typography variant="h5" component="h3" sx={{borderLeft: "2px solid", padding: 1}}>
-                                {day.day.avgtemp_c.toFixed(0)}°C
-                              </Typography>
-                            </div>
+                        sx={{
+                          margin: "10px",
+                          padding: "10px",
+                          borderRadius: "10px",
+                          display: "flex",
+                          bgcolor: "#7f89814a",
+                          minWidth: "75%"
+                        }}
+                      >
+                        <div className="cards">
+                          <div>
+                            <Box component="img" alt={day.day.condition.text} src={day.day.condition.icon} />
                           </div>
-                        </Box>
-                      </div>
-                    ))}
-                  </Box>
-                )}
-                <Anuncio />
-              </Container>
-            </div>
+                          <div>
+                            <Typography variant="body1" component="p">
+                              {day.date}
+                            </Typography>
+                          </div>
+                          <div>
+                            <Typography variant="h5" component="h3" sx={{ borderLeft: "2px solid", padding: 1 }}>
+                              {day.day.avgtemp_c.toFixed(0)}°C
+                            </Typography>
+                          </div>
+                        </div>
+                      </Box>
+                    </div>
+                  ))}
+                </Box>
+              )}
+              <Anuncio />
           </div>
         </div>
       </div>

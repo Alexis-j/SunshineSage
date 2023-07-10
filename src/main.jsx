@@ -37,8 +37,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 );
 
-// Estilo global para el body
-document.body.style.backgroundImage = `url(${bgImage})`;
-document.body.style.backgroundSize = "cover";
-document.body.style.backgroundRepeat = "no-repeat";
-document.body.style.backgroundPosition = "center";

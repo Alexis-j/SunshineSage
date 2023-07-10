@@ -1,23 +1,35 @@
+
+El CSS que has proporcionado es correcto para dividir la aplicación en dos partes: el panel izquierdo y el panel derecho. Sin embargo, hay algunos errores menores en las clases CSS que podrían causar que los estilos no se apliquen correctamente.
+
+Aquí tienes una versión corregida del CSS:
+
+css
+Copy code
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .app-container {
   border: solid 10px #7f89814a;
   margin: 30px;
   border-radius: 30px;
   min-height: 95vh;
+  width: 90%;
+  max-width: 800px;
 }
-.panels{
+
+.panels {
   display: flex;
-  justify-content: space-between;
-  height: 100vh;
 }
-
-
 
 .leftpanel {
   width: 70%;
   height: 100%;
-  border-radius: 20px 0 0 20px ;
+  border-radius: 20px 0 0 20px;
 }
-
 
 .rightpanel {
   width: 30%;
@@ -26,6 +38,8 @@
   backdrop-filter: blur(24px); /* Ajusta el valor de desenfoque según tus preferencias */
 }
 
+
+/*
 .full-width {
   width: 100%;
 }
@@ -41,4 +55,4 @@
   justify-content: space-between;
   color: white;
   min-width: 100%;
-}
+} */

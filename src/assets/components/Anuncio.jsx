@@ -8,9 +8,6 @@ export default function Anuncio() {
       sx={{
         mt: 2,
         fontSize: "10px",
-        position: "absolute",
-        top: "90%",
-        left: "40%",
       }}
     >
       Powered By:{" "}
