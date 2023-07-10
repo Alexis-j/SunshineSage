@@ -10,7 +10,7 @@
   border: solid 10px #7f89814a;
   margin: 30px;
   border-radius: 30px;
-  min-height: 90vh;
+  min-height: 80vh;
   width: 100%;
 }
 
@@ -31,7 +31,7 @@
   flex: 70%;
   display: flex;
   justify-content: space-between;
-  
+
 }
 
 

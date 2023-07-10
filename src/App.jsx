@@ -3,6 +3,9 @@ import { Box, TextField, Typography, IconButton } from "@mui/material";
 import AppName from "./assets/components/AppName";
 import Anuncio from "./assets/components/Anuncio";
 import {  Search as SearchIcon } from "@mui/icons-material";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 
 import './App.css'; // Importa el archivo CSS
 import { BorderBottom } from "@mui/icons-material";
@@ -23,7 +26,8 @@ export default function App() {
     icon: "",
     conditionText: "",
     forecast: [],
-    hourlyForecast: []
+    hourlyForecast: [],
+    tomorrowForecast: []
   });
 
   const onSubmit = async (event) => {
@@ -50,12 +54,19 @@ export default function App() {
       }
 
       const currentDateTime = new Date();
-      const currentIndex = forecastData.forecast.forecastday[0].hour.findIndex(hour => {
+      const currentIndex = forecastData.forecast.forecastday[0].hour.findIndex((hour) => {
         const hourDateTime = new Date(hour.time);
         return hourDateTime > currentDateTime;
       });
 
-      const hourlyForecast = forecastData.forecast.forecastday[0].hour.slice(currentIndex, currentIndex + 24);
+      let hourlyForecast = forecastData.forecast.forecastday[0].hour.slice(currentIndex, currentIndex + 8);
+      let tomorrowForecast = forecastData.forecast.forecastday[1].hour.slice(0, 8);
+
+      // Completar con los resultados del día siguiente si no hay suficientes
+      if (hourlyForecast.length < 8) {
+        tomorrowForecast = forecastData.forecast.forecastday[1].hour.slice(0, 8 - hourlyForecast.length);
+        hourlyForecast = hourlyForecast.concat(tomorrowForecast);
+      }
 
       setWeather({
         city: currentData.location.name,
@@ -65,12 +76,13 @@ export default function App() {
         icon: currentData.current.condition.icon,
         conditionText: currentData.current.condition.text,
         forecast: forecastData.forecast.forecastday,
-        hourlyForecast: hourlyForecast
+        hourlyForecast: hourlyForecast,
+        tomorrowForecast: tomorrowForecast,
       });
     } catch (error) {
       setError({
         error: true,
-        message: error.message
+        message: error.message,
       });
     } finally {
       setLoading(false);
@@ -88,44 +100,43 @@ export default function App() {
             <Typography variant="h6" component="h3" sx={{ color: "#ffffff", m: 5 ,textAlign: "right"}}>
               {weather.city} {weather.country}
             </Typography>
-            <Typography variant="h1" component="h3" sx={{ color: "#ffffff", mt:45 }}>
+            <Typography variant="h1" component="h3" sx={{ color: "#ffffff", mt:40 }}>
               {weather.condition}
             </Typography>
             </div>
           </div>
           <div className="leftpanelbottom">
-            {weather.hourlyForecast.length > 0 && ( // estos son los datos por hora
-              <div className="small-cards">
-                {weather.hourlyForecast.map((hour) => (
-                  <div style={{ display: "flex", mt: 2, color: "#ffffff" , }} key={hour.time}>
-                    <Box
-                      sx={{
-                        margin: "10px",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        display: "flex",
-                        bgcolor: "#7f89814a",
-                        width: "100%",
-                      }}
-                    >
+            <div className="small-cards">
+              {weather.hourlyForecast.map((hour) => (
+                <div style={{ display: "flex", mt: 2, color: "#ffffff" }} key={hour.time}>
+                  <Box
+                    sx={{
+                      margin: "10px",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      display: "flex",
+                      bgcolor: "#7f89814a",
+                      width: "100%",
+                    }}
+                  >
+                    <div>
                       <div>
-                        <div>
-                          <Typography variant="h5" component="h3" sx={{ borderBottom: "2px solid", padding: 1 }}>
-                            {hour.temp_c.toFixed(0)}°C
-                          </Typography>
-                        </div>
-                        <div>
-                          <Typography variant="body1" component="p" sx={{ padding: 0.5 }}>
-                            {new Date(hour.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                          </Typography>
-                        </div>
+                        <Typography variant="h5" component="h3" sx={{ borderBottom: "2px solid", padding: 1 }}>
+                          {hour.temp_c.toFixed(0)}°C
+                        </Typography>
                       </div>
-                    </Box>
-                  </div>
-                ))}
-              </div>
-            )}
+                      <div>
+                        <Typography variant="body1" component="p" sx={{ padding: 0.5 }}>
+                          {new Date(hour.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </Typography>
+                      </div>
+                    </div>
+                  </Box>
+                </div>
+              ))}
+            </div>
           </div>
+
         </div>
           <div className="rightpanel">
               <Box
