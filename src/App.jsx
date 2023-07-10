@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
-import { Box, Container, TextField, Typography, IconButton } from "@mui/material";
+import { Box, TextField, Typography, IconButton } from "@mui/material";
 import AppName from "./assets/components/AppName";
 import Anuncio from "./assets/components/Anuncio";
-import { ForkRight, Search as SearchIcon } from "@mui/icons-material";
-import Slide from '@mui/material/Slide';
+import {  Search as SearchIcon } from "@mui/icons-material";
 
 import './App.css'; // Importa el archivo CSS
 import { BorderBottom } from "@mui/icons-material";
@@ -14,7 +13,7 @@ const API_WEATHER_FORECAST = `https://api.weatherapi.com/v1/forecast.json?key=${
 export default function App() {
   const inputRef = useRef(null);
   const [city, setCity] = useState("");
-  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState({ error: false, message: "" });
   const [weather, setWeather] = useState({
     city: "",
@@ -29,7 +28,6 @@ export default function App() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
     setError({ error: false, message: "" });
 
     try {
@@ -57,7 +55,7 @@ export default function App() {
         return hourDateTime > currentDateTime;
       });
 
-      const hourlyForecast = forecastData.forecast.forecastday[0].hour.slice(currentIndex, currentIndex + 5);
+      const hourlyForecast = forecastData.forecast.forecastday[0].hour.slice(currentIndex, currentIndex + 24);
 
       setWeather({
         city: currentData.location.name,
@@ -134,16 +132,13 @@ export default function App() {
                 sx={{
                   display: "grid",
                   gap: 2,
-                  mt: 2 ,
-                  maxWidth: "90%",
+                  m: 2,
                 }}
                 component="form"
                 autoComplete="off"
                 onSubmit={onSubmit}
-
               >
                 <TextField
-                  padding="5px"
                   id="City"
                   label="City"
                   variant="outlined"
@@ -163,10 +158,27 @@ export default function App() {
                         e.preventDefault();
                         onSubmit(e);
                       }
+                    },
+                    inputProps: {
+                      style: { color: "white" }
                     }
                   }}
+                  InputLabelProps={{
+                    style: { color: "#ffffff" }
+                  }}
                   inputRef={inputRef}
-                  sx={{  minWidth: "100%" }}
+                  sx={{
+                    minWidth: "100%",
+                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white"
+                    },
+                    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white"
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white"
+                    }
+                  }}
                 />
               </Box>
               {weather.city && (
