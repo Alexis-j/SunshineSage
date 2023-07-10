@@ -66,3 +66,26 @@
   justify-content: space-between;
 
 }
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 767px) {
+  /* Define aquí los estilos para pantallas pequeñas */
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .leftpanel {
+    display: none;
+  }
+
+  .rightpanel {
+    flex: 100%;
+  }
+}
+/* stilos para pantallas grandes */
+@media (min-width: 1024px) {
+  /* Define aquí los estilos para pantallas grandes */
+}

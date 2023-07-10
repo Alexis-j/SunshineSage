@@ -1,11 +1,9 @@
+import React from "react";
 import { useState, useRef } from "react";
 import { Box, TextField, Typography, IconButton } from "@mui/material";
 import AppName from "./assets/components/AppName";
 import Anuncio from "./assets/components/Anuncio";
 import {  Search as SearchIcon } from "@mui/icons-material";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 
 import './App.css'; // Importa el archivo CSS
 import { BorderBottom } from "@mui/icons-material";
@@ -16,7 +14,7 @@ const API_WEATHER_FORECAST = `https://api.weatherapi.com/v1/forecast.json?key=${
 export default function App() {
   const inputRef = useRef(null);
   const [city, setCity] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ error: false, message: "" });
   const [weather, setWeather] = useState({
     city: "",
@@ -32,6 +30,7 @@ export default function App() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     setError({ error: false, message: "" });
 
     try {
@@ -64,7 +63,7 @@ export default function App() {
 
       // Completar con los resultados del día siguiente si no hay suficientes
       if (hourlyForecast.length < 8) {
-        tomorrowForecast = forecastData.forecast.forecastday[1].hour.slice(0, 8 - hourlyForecast.length);
+        tomorrowForecast = forecastData.forecast.forecastday[1].hour.slice(0, 7 - hourlyForecast.length);
         hourlyForecast = hourlyForecast.concat(tomorrowForecast);
       }
 
@@ -88,35 +87,35 @@ export default function App() {
       setLoading(false);
     }
   };
-
   return (
     <div className="app">
       <div className="app-container">
         <div className="panels">
         <div className="leftpanel">
           <div className="leftpaneltop">
+
             <AppName />
-            <div>
-            <Typography variant="h6" component="h3" sx={{ color: "#ffffff", m: 5 ,textAlign: "right"}}>
-              {weather.city} {weather.country}
-            </Typography>
-            <Typography variant="h1" component="h3" sx={{ color: "#ffffff", mt:40 }}>
-              {weather.condition}
-            </Typography>
-            </div>
+            <Box sx={{display: {lg: "block" , xs:"none"}}}>
+              <Typography variant="h6" component="h3" sx={{ color: "#ffffff", m: 5 ,textAlign: "right"  }}>
+                {weather.city} {weather.country}
+              </Typography>
+              <Typography variant="h1" component="h3" sx={{ color: "#ffffff", mt:40 }}>
+                {weather.condition}
+              </Typography>
+            </Box>
           </div>
           <div className="leftpanelbottom">
             <div className="small-cards">
-              {weather.hourlyForecast.map((hour) => (
+              {weather.hourlyForecast.map((hour) => (  //stos son los resultados por horas
                 <div style={{ display: "flex", mt: 2, color: "#ffffff" }} key={hour.time}>
                   <Box
                     sx={{
                       margin: "10px",
                       padding: "10px",
                       borderRadius: "10px",
-                      display: "flex",
                       bgcolor: "#7f89814a",
                       width: "100%",
+                      display: {lg: "block" , xs:"none"}
                     }}
                   >
                     <div>
@@ -138,7 +137,7 @@ export default function App() {
           </div>
 
         </div>
-          <div className="rightpanel">
+          <div className="rightpanel" style={{ flexGrow: 1 }}>
               <Box
                 sx={{
                   display: "grid",
