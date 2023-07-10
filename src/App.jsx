@@ -4,8 +4,6 @@ import { useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import Anuncio from "./assets/components/Anuncio";
 import AppName from "./assets/components/AppName";
-import sunnyImage from "./assets/components/img/sunny.jpg"; // Importa la imagen para clima soleado
-import rainyImage from "./assets/components/img/Rainy.jpg"; // Importa la imagen para clima soleado
 
 import './App.css'; // Importa el archivo CSS
 import { BorderBottom } from "@mui/icons-material";
@@ -72,10 +70,7 @@ export default function App() {
     <div className="app">
       <div className="app-container">
         <div className="panels">
-          <div className="leftpanel" style={{
-            backgroundImage: weather.conditionText === "Sunny" ? `url(${sunnyImage})` : "",
-            backgroundImage: weather.conditionText === "Light rain" ? `url(${rainyImage})` : "",
-            backgroundSize:"cover", }}>
+          <div className="leftpanel">
             <div style={{ display: "flex", alignItems: "center", color:"#ffffff" }}>
               <div>
                 <AppName />

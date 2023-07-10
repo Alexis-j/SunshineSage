@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import { CssBaseline } from "@mui/material";
 import { SnackbarProvider } from "notistack";
-import bgImage from "./assets/components/img/bg-img.jpg";
+import bgImage from "./assets/components/img/sunny.jpg";
 
 
 import '@fontsource/roboto/300.css'
