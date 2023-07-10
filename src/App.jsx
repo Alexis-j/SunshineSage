@@ -4,6 +4,9 @@ import AppName from "./assets/components/AppName";
 import Anuncio from "./assets/components/Anuncio";
 import { Search as SearchIcon } from "@mui/icons-material";
 
+import './App.css'; // Importa el archivo CSS
+import { BorderBottom } from "@mui/icons-material";
+
 const API_WEATHER_CURRENT = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`;
 const API_WEATHER_FORECAST = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=`;
 
@@ -53,7 +56,7 @@ export default function App() {
         return hourDateTime > currentDateTime;
       });
 
-      const hourlyForecast = forecastData.forecast.forecastday[0].hour.slice(currentIndex, currentIndex + 6);
+      const hourlyForecast = forecastData.forecast.forecastday[0].hour.slice(currentIndex, currentIndex + 5);
 
       setWeather({
         city: currentData.location.name,
@@ -88,7 +91,7 @@ export default function App() {
                   color: "#ffffff"
                 }}
               >
-                {weather.hourlyForecast.map((hour) => (
+                {weather.hourlyForecast.map((hour) => ( // esto es el pronostico cada hora
                   <div key={hour.time}>
                     <Box
                       sx={{
@@ -127,6 +130,7 @@ export default function App() {
                 component="form"
                 autoComplete="off"
                 onSubmit={onSubmit}
+
               >
                 <TextField
                   id="City"
@@ -151,7 +155,7 @@ export default function App() {
                     }
                   }}
                   inputRef={inputRef}
-                  sx={{ border: "2px solid", minWidth: "100%" }}
+                  sx={{  minWidth: "100%" }}
                 />
               </Box>
               {weather.city && (
