@@ -2,7 +2,8 @@ import { useState, useRef } from "react";
 import { Box, Container, TextField, Typography, IconButton } from "@mui/material";
 import AppName from "./assets/components/AppName";
 import Anuncio from "./assets/components/Anuncio";
-import { Search as SearchIcon } from "@mui/icons-material";
+import { ForkRight, Search as SearchIcon } from "@mui/icons-material";
+import Slide from '@mui/material/Slide';
 
 import './App.css'; // Importa el archivo CSS
 import { BorderBottom } from "@mui/icons-material";
@@ -82,17 +83,23 @@ export default function App() {
     <div className="app">
       <div className="app-container">
         <div className="panels">
-          <div className="leftpanel">
+        <div className="leftpanel">
+          <div className="leftpaneltop">
             <AppName />
-            {weather.hourlyForecast.length > 0 && (
-              <Box
-                sx={{
-                  mt: 2,
-                  color: "#ffffff"
-                }}
-              >
-                {weather.hourlyForecast.map((hour) => ( // esto es el pronostico cada hora
-                  <div key={hour.time}>
+            <div>
+            <Typography variant="h6" component="h3" sx={{ color: "#ffffff", m: 5 ,textAlign: "right"}}>
+              {weather.city} {weather.country}
+            </Typography>
+            <Typography variant="h1" component="h3" sx={{ color: "#ffffff", mt:45 }}>
+              {weather.condition}
+            </Typography>
+            </div>
+          </div>
+          <div className="leftpanelbottom">
+            {weather.hourlyForecast.length > 0 && ( // estos son los datos por hora
+              <div className="small-cards">
+                {weather.hourlyForecast.map((hour) => (
+                  <div style={{ display: "flex", mt: 2, color: "#ffffff" , }} key={hour.time}>
                     <Box
                       sx={{
                         margin: "10px",
@@ -100,32 +107,35 @@ export default function App() {
                         borderRadius: "10px",
                         display: "flex",
                         bgcolor: "#7f89814a",
-                        Width: "100%"
+                        width: "100%",
                       }}
                     >
-                      <div className="small-cards">
+                      <div>
                         <div>
-                          <Typography variant="body1" component="p">
-                            {new Date(hour.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          <Typography variant="h5" component="h3" sx={{ borderBottom: "2px solid", padding: 1 }}>
+                            {hour.temp_c.toFixed(0)}°C
                           </Typography>
                         </div>
                         <div>
-                          <Typography variant="h5" component="h3" sx={{ borderTop: "2px solid", padding: 1 }}>
-                            {hour.temp_c.toFixed(0)}°C
+                          <Typography variant="body1" component="p" sx={{ padding: 0.5 }}>
+                            {new Date(hour.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                           </Typography>
                         </div>
                       </div>
                     </Box>
                   </div>
                 ))}
-              </Box>
+              </div>
             )}
           </div>
+        </div>
           <div className="rightpanel">
               <Box
                 sx={{
                   display: "grid",
-                  gap: 2
+                  gap: 2,
+                  mt: 2 ,
+                  maxWidth: "90%",
                 }}
                 component="form"
                 autoComplete="off"
