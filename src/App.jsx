@@ -108,7 +108,7 @@ export default function App() {
               <Typography variant="h6" component="h3" sx={{ color: "#ffffff", m: 5 ,textAlign: "right"  }}>
                 {weather.city} {weather.country}
               </Typography>
-              <Typography variant="h1" component="h3" sx={{ color: "#ffffff", mt:40 }}>
+              <Typography variant="h1" component="h3" sx={{ color: "#ffffff", mt:35 }}>
                 {weather.condition}
               </Typography>
             </Box>

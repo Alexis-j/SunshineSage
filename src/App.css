@@ -4,13 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .app-container {
   border: solid 10px #7f89814a;
   margin: 30px;
   border-radius: 30px;
-  min-height: 80vh;
+  height: 95%;
   width: 100%;
   transition: all 0.5s ease;
 }
@@ -38,8 +39,8 @@
 
 .rightpanel {
   width: 30%;
-  height: 100vh;
-  border-radius: 0 20px 20px 0;
+  height: 92.1vh;
+  border-radius:20px;
   backdrop-filter: blur(24px); /* Ajusta el valor de desenfoque según tus preferencias */
 }
 
