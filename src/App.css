@@ -12,6 +12,7 @@
   border-radius: 30px;
   min-height: 80vh;
   width: 100%;
+  transition: all 0.5s ease;
 }
 
 .panels {
@@ -66,10 +67,19 @@
   justify-content: space-between;
 
 }
+@media (max-width: 600px) {
+  .app-container {
+    flex-direction: column;
+  }
 
-/* Estilos para pantallas pequeñas */
-@media (max-width: 767px) {
-  /* Define aquí los estilos para pantallas pequeñas */
+  .leftpanel {
+    display: none;
+  }
+
+  .rightpanel {
+    flex: 0;
+    transition: flex 0.5s ease;
+  }
 }
 
 @media (max-width: 768px) {
@@ -82,10 +92,30 @@
   }
 
   .rightpanel {
-    flex: 100%;
+    flex: 0;
+    transition: flex 0.5s ease;
   }
 }
-/* stilos para pantallas grandes */
-@media (min-width: 1024px) {
-  /* Define aquí los estilos para pantallas grandes */
+@media (max-width: 600px) {
+  .rightpanel {
+    flex: 0;
+    transition: flex 0.5s ease;
+  }
+
+  .rightpanel.expanded {
+    flex: 1;
+    transition-delay: 0.5s; /* Retraso para la animación gradual */
+  }
+}
+
+@media (max-width: 768px) {
+  .rightpanel {
+    flex: 0;
+    transition: flex 0.5s ease;
+  }
+
+  .rightpanel.expanded {
+    flex: 1;
+    transition-delay: 0.5s; /* Retraso para la animación gradual */
+  }
 }

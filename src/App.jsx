@@ -87,6 +87,15 @@ export default function App() {
       setLoading(false);
     }
   };
+
+      // Obtén el elemento rightpanel
+    var rightPanel = document.querySelector('.rightpanel');
+
+    // Agrega la clase "expanded" después de un retraso de 0.5 segundos (500 milisegundos)
+    setTimeout(function() {
+      rightPanel.classList.add('expanded');
+    }, 500);
+
   return (
     <div className="app">
       <div className="app-container">
