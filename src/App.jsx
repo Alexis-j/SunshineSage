@@ -203,13 +203,13 @@ export default function App() {
               {weather.city && (
                 <Box
                   sx={{
-                    mt: 2,
+                    mt: 1,
                     display: "grid",
-                    gap: 2,
+                    gap: 1,
                     textAlign: "center"
                   }}
                 >
-                  <Typography variant="h1" component="h3" sx={{ color: "#ffffff" }}>
+                  <Typography variant="h1" component="h4" sx={{ color: "#ffffff" }}>
                     {weather.temp}°C
                   </Typography>
                   <div className="card">
@@ -231,7 +231,7 @@ export default function App() {
                       <Box
                         sx={{
                           margin: "10px",
-                          padding: "10px",
+                          padding: "7px",
                           borderRadius: "10px",
                           display: "flex",
                           bgcolor: "#7f89814a",

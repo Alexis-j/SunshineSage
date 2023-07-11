@@ -6,7 +6,6 @@ export default function Anuncio() {
     <Typography
       textAlign="center"
       sx={{
-        mt: 2,
         fontSize: "10px",
         color:"white"
       }}
