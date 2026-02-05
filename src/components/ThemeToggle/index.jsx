@@ -1,25 +1,20 @@
-import "./styles.css";
+import { HiddenCheckbox, ToggleLabel, ToggleWrapper } from "./styles";
 
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import PropTypes from "prop-types";
+import MoonIcon from "../icons/MoonIconSvg";
+import SunIcon from "../icons/SunIconSvg";
 
-function ThemeToggleButton({ toggleTheme, isDark }) {
+export default function ThemeToggle({ isDark, toggleTheme }) {
   return (
-    <div
-      className={`toggle ${isDark ? "dark" : "light"}`}
-      onClick={toggleTheme}
-      role="button"
-      aria-label="Cambiar tema"
-    >
-      <div className="thumb">{isDark ? <DarkModeIcon /> : <LightModeIcon />}</div>
-    </div>
+    <ToggleWrapper>
+      <HiddenCheckbox
+        id="theme-toggle"
+        checked={isDark}
+        onChange={toggleTheme}
+      />
+      <ToggleLabel htmlFor="theme-toggle" $checked={isDark}>
+        <SunIcon $active={!isDark} />
+        <MoonIcon $active={isDark} />
+      </ToggleLabel>
+    </ToggleWrapper>
   );
 }
-
-ThemeToggleButton.propTypes = {
-  toggleTheme: PropTypes.func.isRequired,
-  isDark: PropTypes.bool.isRequired,
-};
-
-export default ThemeToggleButton;

@@ -1,4 +1,0 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: system-ui; transition: background 0.3s ease, color 0.3s ease; }
-img { max-width: 100%; display: block; }
-h1,h2,h3,p { margin: 0; }
