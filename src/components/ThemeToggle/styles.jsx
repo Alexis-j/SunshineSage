@@ -2,47 +2,66 @@ import styled from "styled-components";
 
 export const ToggleWrapper = styled.div`
   position: relative;
+  width: 100%;
+  max-width: 120px;  /* ancho máximo */
 `;
 
 export const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
-  width: 0;
-  height: 0;
-  visibility: hidden;
+  display: none;
 `;
 
 export const ToggleLabel = styled.label`
-  width: 500px;
-  height: 200px;
-  position: relative;
   display: block;
+  width: 50%;
+  aspect-ratio: 2.5;
+  border-radius: 50px;
   background: ${({ $checked }) => ($checked ? "#242424" : "#ebebeb")};
-  border-radius: 200px;
+  position: relative;
   cursor: pointer;
-  transition: 0.3s;
-
   box-shadow:
-    inset 0px 5px 15px rgba(0,0,0,0.4),
-    inset 0px -5px 15px rgba(255,255,255,0.4);
+    inset 0px 5px 15px rgba(0,0,0,0.2),
+    inset 0px -5px 15px rgba(255,255,255,0.2);
+`;
 
-  &::after {
-    content: "";
-    width: 180px;
-    height: 180px;
-    position: absolute;
-    top: 10px;
-    left: ${({ $checked }) => ($checked ? "490px" : "10px")};
-    transform: ${({ $checked }) =>
-      $checked ? "translateX(-100%)" : "none"};
-    background: ${({ $checked }) =>
-      $checked
-        ? "linear-gradient(180deg,#777,#3a3a3a)"
-        : "linear-gradient(180deg,#ffcc89,#d8860b)"};
-    border-radius: 180px;
-    transition: 0.3s;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+
+export const Thumb = styled.div`
+  position: absolute;
+  top: 5%;
+  left: ${({ $checked }) => ($checked ? "55%" : "5%")};
+  width: 40%;
+  height: 90%;
+  border-radius: 50%;
+  background: ${({ $checked }) =>
+    $checked
+      ? "linear-gradient(180deg,#777,#3a3a3a)"
+      : "linear-gradient(180deg,#ffcc89,#d8860b)"};
+  transition: left 0.3s, background 0.3s;
+  z-index: 1;
+`;
+
+export const Icon = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);  /* centra verticalmente */
+  width: 24px;
+  height: 24px;
+  z-index: 2;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: ${({ $active }) => ($active ? "#fff" : "rgba(255,255,255,0.4)")};
+    transition: fill 0.3s;
   }
 
-  &:active::after {
-    width: 260px;
-  }
+  ${({ $position }) =>
+    $position === "left" &&
+    `
+      left: 5%;   /* siempre pegado al borde izquierdo */
+  `}
+  ${({ $position }) =>
+    $position === "right" &&
+    `
+      right: 5%;  /* siempre pegado al borde derecho */
+  `}
 `;
