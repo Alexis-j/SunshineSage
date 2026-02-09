@@ -23,6 +23,8 @@ const GlobalStyles = createGlobalStyle`
   h1,h2,h3,p {
     margin: 0;
   }
+
+  
 `;
 
 export default GlobalStyles;

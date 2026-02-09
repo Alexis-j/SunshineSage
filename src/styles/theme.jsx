@@ -6,8 +6,11 @@ export const lightTheme = {
     secondaryText: "#5F6470",
     brandColor: "#752BEC",
 
-    thumbGradient: "linear-gradient(180deg, #FFCC89, #D8860B)",
-    
+    iconActive: "#FFFFFF",
+    iconInactive: "rgba(119, 117, 117, 0.35)",
+  },
+  gradients: {
+    thumb: "linear-gradient(180deg, #FFCC89, #D8860B)",
   },
 };
 
@@ -19,6 +22,10 @@ export const darkTheme = {
     secondaryText: "#676B73",
     brandColor: "#752BEC",
 
-    thumbGradient: "linear-gradient(180deg, #777777, #3A3A3A)",
+    iconActive: "#FFFFFF",
+    iconInactive: "rgba(119, 117, 117, 0.35)",
+  },
+  gradients: {
+    thumb: "linear-gradient(180deg, #444444, #1F1F1F)",
   },
 };
