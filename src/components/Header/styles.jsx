@@ -31,9 +31,10 @@ export const SearchInput = styled.input`
   border-radius: 20px;
   border: none;
   outline: none;
+  color: ${({ theme }) => theme.colors.mainText};
 
-  width: 250px;
-  font-size: 1rem;
+  width:350px;
+  font-size: 1.5rem;
 
   background: ${({ theme }) => theme.colors.secondary};
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);

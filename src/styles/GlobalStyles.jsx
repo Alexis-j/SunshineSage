@@ -24,7 +24,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
-  
+
 `;
 
 export default GlobalStyles;
+

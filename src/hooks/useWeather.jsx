@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
 
+import { fetchWeather } from "../services/weatherService";
+
 export function useWeather(city) {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=${city}`);
-        const data = await res.json();
-        if (data.error) throw new Error(data.error.message);
+    if (!city) return;
 
-        setWeather({
-          city: data.location.name,
-          country: data.location.country,
-          temp: data.current.temp_c,
-          condition: data.current.condition.text,
-          icon: data.current.condition.icon,
-        });
+    const getWeather = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const data = await fetchWeather(city);
+        setWeather(data);
       } catch (err) {
         setError(err.message);
+        setWeather(null);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchWeather();
+
+    getWeather();
   }, [city]);
 
-  return { weather, error };
+  return { weather, error, loading };
 }
