@@ -1,21 +1,31 @@
 export const fetchWeather = async (query) => {
-  const res = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${query}&days=1`
-  );
+  try {
+    const res = await fetch(
+      `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${query}&days=1`
+    );
 
-  const data = await res.json();
+    if (!res.ok) {
+      throw new Error("Error al obtener datos del clima");
+    }
 
-  if (data.error) throw new Error(data.error.message);
+    const data = await res.json();
 
-  return {
-    city: data.location.name,
-    country: data.location.country,
-    temp: data.current.temp_c,
-    feelsLike: data.current.feelslike_c,
-    condition: data.current.condition.text,
-    icon: "https:" + data.current.condition.icon,
-    max: data.forecast.forecastday[0].day.maxtemp_c,
-    min: data.forecast.forecastday[0].day.mintemp_c,
-    date: data.location.localtime,
-  };
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+
+    return {
+      city: data.location.name,
+      country: data.location.country,
+      temp: data.current.temp_c,
+      feelsLike: data.current.feelslike_c,
+      condition: data.current.condition.text,
+      icon: "https:" + data.current.condition.icon,
+      max: data.forecast.forecastday[0].day.maxtemp_c,
+      min: data.forecast.forecastday[0].day.mintemp_c,
+      date: data.location.localtime,
+    };
+  } catch (err) {
+    throw new Error(err.message || "Error desconocido");
+  }
 };

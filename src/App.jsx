@@ -38,7 +38,7 @@ function App() {
     if (!city && coords) {
       setCity(`${coords.lat},${coords.lon}`);
     }
-  }, [coords]);
+  }, [city, coords, setCity]);
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>

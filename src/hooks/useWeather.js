@@ -10,21 +10,35 @@ export function useWeather(query) {
   useEffect(() => {
     if (!query) return;
 
+    let cancelled = false;
+
     const getWeather = async () => {
       try {
         setLoading(true);
         setError(null);
+
         const data = await fetchWeather(query);
-        setWeather(data);
+
+        if (!cancelled) {
+          setWeather(data);
+        }
       } catch (err) {
-        setError(err.message);
-        setWeather(null);
+        if (!cancelled) {
+          setError(err.message);
+          setWeather(null);
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     getWeather();
+
+    return () => {
+      cancelled = true;
+    };
   }, [query]);
 
   return { weather, error, loading };

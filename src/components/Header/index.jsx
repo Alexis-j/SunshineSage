@@ -1,7 +1,6 @@
 import { HeaderContainer, LocationButton, Logo, SearchIcon, SearchInput, SearchWrapper } from "./styles";
 
 import ThemeToggleButton from "../ThemeToggle";
-import logo from "../../../public/logo.png";
 import { useState } from "react";
 
 const Header = ({ isDark, toggleTheme, onSearch, onUseLocation }) => {
@@ -15,7 +14,7 @@ const Header = ({ isDark, toggleTheme, onSearch, onUseLocation }) => {
   return (
     <HeaderContainer>
       <Logo>
-        <img src={logo} alt="logo" />
+        <img src="/logo.png" alt="logo" />
       </Logo>
 
       <SearchWrapper>
