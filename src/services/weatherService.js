@@ -1,6 +1,6 @@
-export const fetchWeather = async (city) => {
+export const fetchWeather = async (query) => {
   const res = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=${city}`
+    `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${query}&days=1`
   );
 
   const data = await res.json();
@@ -11,7 +11,11 @@ export const fetchWeather = async (city) => {
     city: data.location.name,
     country: data.location.country,
     temp: data.current.temp_c,
+    feelsLike: data.current.feelslike_c,
     condition: data.current.condition.text,
-    icon: data.current.condition.icon,
+    icon: "https:" + data.current.condition.icon,
+    max: data.forecast.forecastday[0].day.maxtemp_c,
+    min: data.forecast.forecastday[0].day.mintemp_c,
+    date: data.location.localtime,
   };
 };

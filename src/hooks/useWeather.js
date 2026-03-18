@@ -2,20 +2,19 @@ import { useEffect, useState } from "react";
 
 import { fetchWeather } from "../services/weatherService";
 
-export function useWeather(city) {
+export function useWeather(query) {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!city) return;
+    if (!query) return;
 
     const getWeather = async () => {
       try {
         setLoading(true);
         setError(null);
-
-        const data = await fetchWeather(city);
+        const data = await fetchWeather(query);
         setWeather(data);
       } catch (err) {
         setError(err.message);
@@ -26,7 +25,7 @@ export function useWeather(city) {
     };
 
     getWeather();
-  }, [city]);
+  }, [query]);
 
   return { weather, error, loading };
 }

@@ -53,3 +53,9 @@ export const SearchIcon = styled.span`
   right: 10px;
   color: ${({ theme }) => theme.colors.text};
 `;
+
+
+export const LocationButton = styled.button`
+  margin-left: 10px;
+  cursor: pointer;
+`;
