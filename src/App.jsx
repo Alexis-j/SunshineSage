@@ -12,17 +12,15 @@ import { useWeather } from "./hooks/useWeather";
 function App() {
   const [isDark, setIsDark] = useState(true);
 
+  // Guardamos ciudad en localStorage
   const [city, setCity] = useLocalStorage("city", "");
-  const [unit, setUnit] = useLocalStorage("unit", "C");
 
   const { coords } = useGeolocation();
   const { weather, error, loading } = useWeather(city);
 
   const toggleTheme = () => setIsDark(prev => !prev);
 
-  const handleSearch = (cityName) => {
-    setCity(cityName);
-  };
+  const handleSearch = (cityName) => setCity(cityName);
 
   const handleUseLocation = () => {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -30,10 +28,7 @@ function App() {
     });
   };
 
-  const toggleUnit = () => {
-    setUnit(prev => (prev === "C" ? "F" : "C"));
-  };
-
+  // Si no hay ciudad pero tenemos coordenadas, usamos geolocalización
   useEffect(() => {
     if (!city && coords) {
       setCity(`${coords.lat},${coords.lon}`);
@@ -51,13 +46,10 @@ function App() {
         onUseLocation={handleUseLocation}
       />
 
-      <button onClick={toggleUnit}>
-        Cambiar a °{unit === "C" ? "F" : "C"}
-      </button>
-
       {loading && <p>Cargando...</p>}
       {error && <p>{error}</p>}
-      {weather && <WeatherCard weather={weather} unit={unit} />}
+
+      {weather && <WeatherCard weather={weather} />}
     </ThemeProvider>
   );
 }

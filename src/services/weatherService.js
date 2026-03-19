@@ -15,16 +15,16 @@ export const fetchWeather = async (query) => {
     }
 
     return {
-      city: data.location.name,
-      country: data.location.country,
-      temp: data.current.temp_c,
-      feelsLike: data.current.feelslike_c,
-      condition: data.current.condition.text,
-      icon: "https:" + data.current.condition.icon,
-      max: data.forecast.forecastday[0].day.maxtemp_c,
-      min: data.forecast.forecastday[0].day.mintemp_c,
-      date: data.location.localtime,
-    };
+  city: data.location.name,
+  country: data.location.country,
+  temp: data.current.temp_c,
+  feelsLike: data.current.feelslike_c,
+  condition: data.current.condition.text,
+  icon: "https:" + data.current.condition.icon,
+  max: data.forecast.forecastday[0].day.maxtemp_c,
+  min: data.forecast.forecastday[0].day.mintemp_c,
+  date: new Date(data.location.localtime), 
+};
   } catch (err) {
     throw new Error(err.message || "Error desconocido");
   }

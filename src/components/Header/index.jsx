@@ -3,7 +3,7 @@ import { HeaderContainer, LocationButton, Logo, SearchIcon, SearchInput, SearchW
 import ThemeToggleButton from "../ThemeToggle";
 import { useState } from "react";
 
-const Header = ({ isDark, toggleTheme, onSearch, onUseLocation }) => {
+const Header = ({ isDark, toggleTheme, onSearch }) => {
   const [query, setQuery] = useState("");
 
   const handleSearch = () => {
@@ -26,10 +26,6 @@ const Header = ({ isDark, toggleTheme, onSearch, onUseLocation }) => {
         />
         <SearchIcon onClick={handleSearch} />
       </SearchWrapper>
-
-      <LocationButton onClick={onUseLocation}>
-        📍
-      </LocationButton>
 
       <ThemeToggleButton isDark={isDark} toggleTheme={toggleTheme} />
     </HeaderContainer>
