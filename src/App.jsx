@@ -1,8 +1,12 @@
+import { Center, Main } from "./styles/Layout";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { useEffect, useState } from "react";
 
+import DayWeek from "./components/DayWeek";
 import GlobalStyles from "./styles/GlobalStyles";
 import Header from "./components/Header";
+import RightPanel from "./components/RightPanel";
+import Sidebar from "./components/SideBar";
 import { ThemeProvider } from "styled-components";
 import WeatherCard from "./components/WeatherCard";
 import { useGeolocation } from "./hooks/useGeolocation";
@@ -48,8 +52,23 @@ function App() {
 
       {loading && <p>Cargando...</p>}
       {error && <p>{error}</p>}
+      <Main>
+        <Sidebar />
 
-      {weather && <WeatherCard weather={weather} />}
+        <Center>
+          {loading && <p>Cargando...</p>}
+          {error && <p>{error}</p>}
+
+          {weather && (
+            <>
+              <WeatherCard weather={weather} />
+              <DayWeek />
+            </>
+          )}
+        </Center>
+
+        <RightPanel />
+      </Main>
     </ThemeProvider>
   );
 }
