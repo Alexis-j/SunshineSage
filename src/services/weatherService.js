@@ -23,7 +23,10 @@ export const fetchWeather = async (query) => {
   icon: "https:" + data.current.condition.icon,
   max: data.forecast.forecastday[0].day.maxtemp_c,
   min: data.forecast.forecastday[0].day.mintemp_c,
-  date: new Date(data.location.localtime), 
+  date: new Date(data.location.localtime),
+
+  // 🔥 NUEVO
+  hourly: data.forecast.forecastday[0].hour
 };
   } catch (err) {
     throw new Error(err.message || "Error desconocido");

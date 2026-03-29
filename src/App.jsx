@@ -39,6 +39,8 @@ function App() {
     }
   }, [city, coords, setCity]);
 
+  console.log(weather);
+
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyles />
@@ -62,8 +64,7 @@ function App() {
           {weather && (
             <>
               <WeatherCard weather={weather} />
-              <DayWeek />
-            </>
+              <DayWeek weather={weather} />            </>
           )}
         </Center>
 
