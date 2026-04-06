@@ -4,9 +4,13 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+
+  padding: 20px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
   background: ${({ theme }) => theme.colors.primary};
   color: white;
+
 `;
 
 export const Logo = styled.div`

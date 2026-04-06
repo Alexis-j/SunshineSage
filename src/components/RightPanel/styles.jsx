@@ -5,8 +5,9 @@ export const Container = styled.div`
   border-radius: 20px;
   margin: 3rem auto;
   padding: 20px;
-  height: 100%;
   box-shadow: ${({ theme }) => theme.shadows.card};
+  width: 280px;
+  height: 100%;
 
 `;
 

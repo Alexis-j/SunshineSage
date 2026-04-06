@@ -16,7 +16,6 @@ import { useWeather } from "./hooks/useWeather";
 function App() {
   const [isDark, setIsDark] = useState(true);
 
-  // Guardamos ciudad en localStorage
   const [city, setCity] = useLocalStorage("city", "");
 
   const { coords } = useGeolocation();
@@ -32,14 +31,11 @@ function App() {
     });
   };
 
-  // Si no hay ciudad pero tenemos coordenadas, usamos geolocalización
   useEffect(() => {
     if (!city && coords) {
       setCity(`${coords.lat},${coords.lon}`);
     }
   }, [city, coords, setCity]);
-
-  console.log(weather);
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
