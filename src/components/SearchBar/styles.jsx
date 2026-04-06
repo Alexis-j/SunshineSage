@@ -1,47 +1,30 @@
 import styled from "styled-components";
 
-export const HeaderContainer = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 20px 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-
-`;
-
-export const Logo = styled.div`
-  display: flex;
-  align-items: center;
-
-  img {
-    height: 80px;
-    width: auto;
-  }
-`;
-
-
 export const SearchWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+
+
 `;
 
 export const SearchInput = styled.input`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border-radius: 20px;
   border: none;
   outline: none;
   color: ${({ theme }) => theme.colors.mainText};
+  box-shadow: ${({ theme }) => theme.shadows.card};
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+
+
 
   width:350px;
   font-size: 1.5rem;
 
   background: ${({ theme }) => theme.colors.secondary};
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 
   transition: width 0.3s ease, box-shadow 0.2s ease;
 

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 import DayWeek from "./components/DayWeek";
 import GlobalStyles from "./styles/GlobalStyles";
-import Header from "./components/Header";
 import RightPanel from "./components/RightPanel";
+import SearchBar from "./components/SearchBar";
 import Sidebar from "./components/SideBar";
 import { ThemeProvider } from "styled-components";
 import WeatherCard from "./components/WeatherCard";
@@ -39,34 +39,28 @@ function App() {
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <GlobalStyles />
+  <GlobalStyles />
 
-      <Header
-        isDark={isDark}
-        toggleTheme={toggleTheme}
-        onSearch={handleSearch}
-        onUseLocation={handleUseLocation}
-      />
+  <Main>
+    <Sidebar isDark={isDark} toggleTheme={toggleTheme} />
+
+    <Center>
+      <SearchBar onSearch={handleSearch} onUseLocation={handleUseLocation} />
 
       {loading && <p>Cargando...</p>}
       {error && <p>{error}</p>}
-      <Main>
-        <Sidebar />
 
-        <Center>
-          {loading && <p>Cargando...</p>}
-          {error && <p>{error}</p>}
+      {weather && (
+        <>
+          <WeatherCard weather={weather} />
+          <DayWeek weather={weather} />
+        </>
+      )}
+    </Center>
 
-          {weather && (
-            <>
-              <WeatherCard weather={weather} />
-              <DayWeek weather={weather} />            </>
-          )}
-        </Center>
-
-        <RightPanel />
-      </Main>
-    </ThemeProvider>
+    <RightPanel />
+  </Main>
+</ThemeProvider>
   );
 }
 

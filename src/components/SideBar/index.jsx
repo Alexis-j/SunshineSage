@@ -1,10 +1,16 @@
-import { Container, Icons } from "./styles";
+import { Container, Icons, Logo } from "./styles";
 
-const Sidebar = () => {
+import ThemeToggleButton from "../ThemeToggle";
+
+const Sidebar = ({ isDark, toggleTheme }) => {
   return (
     <Container>
-      <h2>⚡</h2>
+      <Logo>
+        <img src="/logo.png" alt="logo" />
+      </Logo>
 
+      <Icons>
+        {/* aquí podrían ir más iconos si quieres */}
       <Icons>
         <span>🏠</span>
         <span>📊</span>
@@ -12,6 +18,9 @@ const Sidebar = () => {
         <span>📅</span>
         <span>⚙️</span>
       </Icons>
+      </Icons>
+
+      <ThemeToggleButton isDark={isDark} toggleTheme={toggleTheme} />
     </Container>
   );
 };

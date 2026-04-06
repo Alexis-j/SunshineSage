@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background: ${({ theme }) => theme.card};
   border-radius: 20px;
-  margin: 3rem auto;
+  margin: 0 auto;
   padding: 20px;
+
   box-shadow: ${({ theme }) => theme.shadows.card};
+  background: rgba(255, 255, 255, 0.05);
+
   width: 280px;
   height: 100%;
 

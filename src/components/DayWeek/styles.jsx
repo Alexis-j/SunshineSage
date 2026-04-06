@@ -3,12 +3,13 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 3rem auto;
-  background: ${({ theme }) => theme.card};
+  margin: 0 auto;
   border-radius: 20px;
   padding: 20px;
   width: 800px;
   box-shadow: ${({ theme }) => theme.shadows.card};
+  background: rgba(255, 255, 255, 0.05);
+
 
 `;
 

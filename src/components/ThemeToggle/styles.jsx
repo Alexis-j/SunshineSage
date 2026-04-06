@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
 export const ToggleWrapper = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 120px;
+  margin: 0 auto;           
 `;
 
 export const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   display: none;
+
 `;
 
 export const ToggleLabel = styled.label`

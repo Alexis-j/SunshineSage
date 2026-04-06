@@ -9,6 +9,10 @@ export const Main = styled.main`
   max-width: 1200px;
   margin: 0 auto; /* centra todo */
   align-items: stretch;
+  background: ${({ theme }) => theme.card};
+
+
+
 `;
 
 export const Center = styled.div`
