@@ -1,31 +1,47 @@
-import { Card, Container, Grid } from "./styles";
+import { Droplets, Sun, Thermometer, Wind } from "lucide-react";
+import WeekForecast from "../WeekForecast/WeekForecast";
+import { CardLabel, CardValue, Container, Grid, HighlightCard, SectionTitle } from "./styles";
 
-const RightPanel = () => {
+const RightPanel = ({ weather }) => {
   return (
     <Container>
-      <h3>Today Highlights</h3>
+      <SectionTitle>Today Highlights</SectionTitle>
 
       <Grid>
-        <Card>
-          <p>Humidity</p>
-          <h2>76%</h2>
-        </Card>
+        <HighlightCard>
+          <CardLabel>
+            <Droplets size={16} />
+            Humidity
+          </CardLabel>
+          <CardValue>{weather ? `${weather.humidity}%` : "--"}</CardValue>
+        </HighlightCard>
 
-        <Card>
-          <p>Wind</p>
-          <h2>12 km/h</h2>
-        </Card>
+        <HighlightCard>
+          <CardLabel>
+            <Wind size={16} />
+            Wind
+          </CardLabel>
+          <CardValue>{weather ? `${weather.wind_kph} km/h` : "--"}</CardValue>
+        </HighlightCard>
 
-        <Card>
-          <p>Feels Like</p>
-          <h2>18°</h2>
-        </Card>
+        <HighlightCard>
+          <CardLabel>
+            <Thermometer size={16} />
+            Feels Like
+          </CardLabel>
+          <CardValue>{weather ? `${Math.round(weather.feelsLike)}°` : "--"}</CardValue>
+        </HighlightCard>
 
-        <Card>
-          <p>UV Index</p>
-          <h2>5</h2>
-        </Card>
+        <HighlightCard>
+          <CardLabel>
+            <Sun size={16} />
+            UV Index
+          </CardLabel>
+          <CardValue>{weather?.uv ?? "--"}</CardValue>
+        </HighlightCard>
       </Grid>
+
+      <WeekForecast week={weather?.week} />
     </Container>
   );
 };
