@@ -1,27 +1,30 @@
-import { LocationButton, SearchIcon, SearchInput, SearchWrapper } from "./styles";
-
 import { useState } from "react";
+import { Search } from "lucide-react";
+import { SearchBarWrapper, SearchInput, SearchButton } from "./styles";
 
-const SearchBar = ({ onSearch, onUseLocation }) => {
+const SearchBarCompact = ({ onSearch }) => {
   const [query, setQuery] = useState("");
 
   const handleSearch = () => {
-    if (!query.trim()) return;
-    onSearch(query.trim());
+    if (query.trim()) {
+      onSearch(query.trim());
+      setQuery("");
+    }
   };
 
   return (
-    <SearchWrapper>
+    <SearchBarWrapper>
       <SearchInput
-        placeholder="Busca ciudad..."
+        placeholder="Search city..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
       />
-      <SearchIcon onClick={handleSearch} />
-      <LocationButton onClick={onUseLocation}></LocationButton>
-    </SearchWrapper>
+      <SearchButton onClick={handleSearch}>
+        <Search size={16} />
+      </SearchButton>
+    </SearchBarWrapper>
   );
 };
 
-export default SearchBar;
+export default SearchBarCompact;

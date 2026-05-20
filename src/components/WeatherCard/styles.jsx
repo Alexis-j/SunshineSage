@@ -5,12 +5,17 @@ export const Card = styled.div`
   justify-content: space-between;
   padding: 2rem;
   border-radius: 25px;
-  width: 800px;
-  margin: 3rem auto;
+  width: 100vh;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   color: ${({ theme }) => theme.colors.mainText};
   box-shadow: ${({ theme }) => theme.shadows.card};
+  transition: all ${({ theme }) => theme.transitions.default};
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.hover};
+  }
 `;
 
 export const CardLeft = styled.div`

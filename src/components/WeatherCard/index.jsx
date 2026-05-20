@@ -46,8 +46,6 @@ const WeatherCard = ({ weather }) => {
           </Label>
           <Thumb $checked={unit === "F"}></Thumb>
         </ToggleWrapper>
-        
-
         <WeatherIcon src={weather.icon} alt="icon" />
         <Condition>{weather.condition}</Condition>
         <FeelsLike>

@@ -13,16 +13,36 @@ export const Container = styled.div`
   transition: transform ${({ theme }) => theme.transitions.default},
               background ${({ theme }) => theme.transitions.default};
 
+  width: 80px;
+  z-index: 95;
+
+  /* 🖥️ Desktop: SIEMPRE visible */
+  transform: translateX(0);
+
+  /* 📱 Mobile/tablet: drawer */
   @media (max-width: 1024px) {
     position: fixed;
     left: 0;
     top: 64px;
     bottom: 0;
-    z-index: 95;
-    border-radius: 0 ${({ theme }) => theme.borderRadius.lg} ${({ theme }) => theme.borderRadius.lg} 0;
-    transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "-100%")});
+
     border-left: none;
-    width: 80px;
+    border-radius: 0 ${({ theme }) => theme.borderRadius.lg}
+      ${({ theme }) => theme.borderRadius.lg} 0;
+
+    transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "-100%")});
+  }
+`;
+
+export const Overlay = styled.div`
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
+    position: fixed;
+    inset: 64px 0 0 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 90;
   }
 `;
 

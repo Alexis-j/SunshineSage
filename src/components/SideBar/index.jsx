@@ -1,5 +1,4 @@
 import { BarChart3, Calendar, Home, MapPin, Settings } from "lucide-react";
-import ThemeToggle from "../ThemeToggle";
 import { Container, IconItem, Icons, Logo } from "./styles";
 
 const navItems = [
@@ -10,7 +9,7 @@ const navItems = [
   { icon: Settings, label: "Settings" },
 ];
 
-const Sidebar = ({ isDark, toggleTheme, isOpen, closeSidebar }) => {
+const Sidebar = ({ isDark, isOpen, closeSidebar }) => {
   return (
     <Container $isOpen={isOpen}>
       <Logo>
@@ -25,9 +24,10 @@ const Sidebar = ({ isDark, toggleTheme, isOpen, closeSidebar }) => {
         ))}
       </Icons>
 
-      <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
     </Container>
   );
 };
 
 export default Sidebar;
+
+

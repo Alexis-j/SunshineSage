@@ -102,67 +102,7 @@ export const NavRight = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
+  width: 120px;
 `;
 
-export const SearchBarCompact = styled.div`
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  padding: ${({ theme }) => `0 ${theme.spacing.sm}`};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  transition: all ${({ theme }) => theme.transitions.fast};
 
-  &:focus-within {
-    border-color: ${({ theme }) => theme.colors.brandColor};
-    box-shadow: ${({ theme }) => theme.shadows.glow};
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-export const SearchInput = styled.input`
-  background: transparent;
-  border: none;
-  outline: none;
-  color: ${({ theme }) => theme.colors.mainText};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
-  width: 140px;
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.secondaryText};
-  }
-`;
-
-export const SearchButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => theme.spacing.xs};
-  color: ${({ theme }) => theme.colors.secondaryText};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  transition: all ${({ theme }) => theme.transitions.fast};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.brandColor};
-  }
-`;
-
-export const AvatarButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: ${({ theme }) => theme.gradients.brand};
-  color: #ffffff;
-  transition: transform ${({ theme }) => theme.transitions.fast};
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;

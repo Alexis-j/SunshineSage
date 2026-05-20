@@ -1,5 +1,4 @@
 import {
-  AvatarButton,
   BrandName,
   HamburgerButton,
   Logo,
@@ -8,9 +7,7 @@ import {
   NavLink,
   NavLinks,
   NavRight,
-  SearchBarCompact,
-  SearchButton,
-  SearchInput,
+
 } from "./styles";
 import { Menu, Search, User, X } from "lucide-react";
 
@@ -18,14 +15,6 @@ import ThemeToggle from "../../components/ThemeToggle";
 import { useState } from "react";
 
 const Navbar = ({ isSidebarOpen, toggleSidebar, onSearch, isDark, toggleTheme }) => {
-  const [query, setQuery] = useState("");
-
-  const handleSearch = () => {
-    if (query.trim()) {
-      onSearch(query.trim());
-      setQuery("");
-    }
-  };
 
   return (
     <Nav>
@@ -47,21 +36,7 @@ const Navbar = ({ isSidebarOpen, toggleSidebar, onSearch, isDark, toggleTheme })
       </NavLinks>
 
       <NavRight>
-        <SearchBarCompact>
-          <SearchInput
-            placeholder="Search city..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          />
-          <SearchButton onClick={handleSearch}>
-            <Search size={16} />
-          </SearchButton>
-        </SearchBarCompact>
         <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
-        <AvatarButton>
-          <User size={20} />
-        </AvatarButton>
       </NavRight>
     </Nav>
   );

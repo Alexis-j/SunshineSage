@@ -5,6 +5,9 @@ export const HeroSection = styled.section`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.xs};
   padding: ${({ theme }) => theme.spacing.lg} 0 0;
+
+  width: 100%;
+  align-items: flex-start;
 `;
 
 export const Greeting = styled.h1`
@@ -14,6 +17,7 @@ export const Greeting = styled.h1`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+
 
   @media (max-width: 768px) {
     font-size: ${({ theme }) => theme.fontSizes.xl};

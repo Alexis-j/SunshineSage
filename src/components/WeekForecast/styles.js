@@ -7,6 +7,11 @@ export const WeekContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border};
   backdrop-filter: blur(20px);
   transition: all ${({ theme }) => theme.transitions.default};
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.hover};
+  }
 `;
 
 export const WeekTitle = styled.h3`
