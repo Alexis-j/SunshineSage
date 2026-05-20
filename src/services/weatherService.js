@@ -9,6 +9,7 @@ export const fetchWeather = async (query) => {
     }
 
     const data = await res.json();
+    console.log(data);
 
     if (data.error) {
       throw new Error(data.error.message);
@@ -29,6 +30,8 @@ export const fetchWeather = async (query) => {
       wind_kph: data.current.wind_kph,
       uv: data.current.uv,
       week: data.forecast.forecastday,
+      sunrise: data.forecast.forecastday[0].astro.sunrise,
+      sunset: data.forecast.forecastday[0].astro.sunset,
     };
   } catch (err) {
     throw new Error(err.message || "Unknown error");

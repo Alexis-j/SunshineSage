@@ -7,6 +7,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 2rem;
   padding: 2rem 0;
+  height: 100%;
   background: ${({ theme }) => theme.colors.secondary};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -70,9 +71,9 @@ export const IconItem = styled.button`
   height: 44px;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   color: ${({ theme, $active }) =>
-    $active ? theme.colors.brandColor : theme.colors.iconInactive};
+    $active ? theme.colors.brandColor : theme.colors.secondaryText};
   background: ${({ theme, $active }) =>
-    $active ? `${theme.colors.brandColor}15` : "transparent"};
+    $active ? `${theme.colors.brandColor}10` : "transparent"};
   transition: all ${({ theme }) => theme.transitions.fast};
 
   &:hover {

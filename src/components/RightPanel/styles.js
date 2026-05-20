@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
-  
+  padding: 24px 8px;
 `;
 
 export const SectionTitle = styled.h3`

@@ -17,9 +17,10 @@ export const MainContent = styled.div`
   padding: ${({ theme }) => theme.spacing.lg};
   gap: ${({ theme }) => theme.spacing.lg};
 
+
   grid-template-areas: "sidebar center rightpanel";
   grid-template-columns: 80px 1fr 300px;
-  align-items: start;
+  align-items: stretch;
 
   @media (max-width: 1024px) {
     grid-template-areas: "center rightpanel";
@@ -36,6 +37,9 @@ export const MainContent = styled.div`
 
 export const SidebarArea = styled.aside`
   grid-area: sidebar;
+  margin:24px 0 ;
+  
+
 
   @media (max-width: 1024px) {
     display: none;
@@ -57,6 +61,10 @@ export const RightPanelArea = styled.aside`
   gap: ${({ theme }) => theme.spacing.lg};
   position: sticky;
   top: 80px;
+  margin: 24px 0;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+
 
   @media (max-width: 768px) {
     position: static;
