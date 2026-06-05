@@ -60,7 +60,29 @@ export const Icons = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  flex: 1;
+`;
+
+export const BottomSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  width: 100%;
+  padding: 0 0 1rem;
+`;
+
+export const Divider = styled.div`
+  width: 32px;
+  height: 1px;
+  background: ${({ theme }) => theme.colors.border};
+`;
+
+export const BottomNav = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 `;
 
 export const IconItem = styled.button`

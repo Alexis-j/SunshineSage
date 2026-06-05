@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
+import AnalyticsView from "./views/AnalyticsView";
 import DayWeek from "./components/DayWeek";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import FavoritesView from "./views/FavoritesView";
 import Hero from "./components/Hero/Hero";
 import RightPanel from "./components/RightPanel";
 import SearchBar from "./components/SearchBar";
+import SettingsView from "./views/SettingsView";
 import Skeleton from "./components/Skeleton/Skeleton";
 import Sidebar from "./components/SideBar";
 import WeatherCard from "./components/WeatherCard";
@@ -28,6 +31,7 @@ function App() {
   const [isDark, setIsDark] = useState(true);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [city, setCity] = useLocalStorage("city", "");
+  const [activeView, setActiveView] = useState("dashboard");
   const { coords, error: geoError } = useGeolocation();
   const { weather, error, loading } = useWeather(city);
 
@@ -35,7 +39,10 @@ function App() {
 
   const toggleTheme = () => setIsDark((prev) => !prev);
 
-  const handleSearch = (cityName) => setCity(cityName);
+  const handleSearch = (cityName) => {
+    setCity(cityName);
+    setActiveView("dashboard");
+  };
 
   const handleUseLocation = () => {
     if (coords) {
@@ -48,6 +55,7 @@ function App() {
         () => {}
       );
     }
+    setActiveView("dashboard");
   };
 
   useEffect(() => {
@@ -55,6 +63,36 @@ function App() {
       setCity(`${coords.lat},${coords.lon}`);
     }
   }, [city, coords, setCity]);
+
+  const renderDashboard = () => (
+    <>
+      <Hero weather={weather} />
+      <SearchBar onSearch={handleSearch} onUseLocation={handleUseLocation} />
+
+      {loading && !weather && <Skeleton />}
+
+      {allErrors && (
+        <div
+          style={{
+            padding: "1rem",
+            background: "rgba(239, 83, 80, 0.1)",
+            borderRadius: "12px",
+            color: "#EF5350",
+            fontSize: "0.875rem",
+          }}
+        >
+          {allErrors}
+        </div>
+      )}
+
+      {weather && (
+        <>
+          <WeatherCard weather={weather} />
+          <DayWeek weather={weather} />
+        </>
+      )}
+    </>
+  );
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
@@ -64,9 +102,10 @@ function App() {
           <Navbar
             isSidebarOpen={isSidebarOpen}
             toggleSidebar={() => setSidebarOpen((prev) => !prev)}
-            onSearch={handleSearch}
             isDark={isDark}
             toggleTheme={toggleTheme}
+            activeView={activeView}
+            onNavigate={setActiveView}
           />
 
           {isSidebarOpen && <SidebarOverlay onClick={() => setSidebarOpen(false)} />}
@@ -74,38 +113,23 @@ function App() {
           <MainContent>
             <SidebarArea>
               <Sidebar
-                isDark={isDark}
-                toggleTheme={toggleTheme}
                 isOpen={isSidebarOpen}
-                closeSidebar={() => setSidebarOpen(false)}
+                activeView={activeView}
+                onNavigate={(view) => {
+                  setActiveView(view);
+                  setSidebarOpen(false);
+                }}
               />
             </SidebarArea>
 
             <CenterArea>
-              <Hero weather={weather} />
-              <SearchBar onSearch={handleSearch} onUseLocation={handleUseLocation} />
-
-              {loading && !weather && <Skeleton />}
-
-              {allErrors && (
-                <div
-                  style={{
-                    padding: "1rem",
-                    background: "rgba(239, 83, 80, 0.1)",
-                    borderRadius: "12px",
-                    color: "#EF5350",
-                    fontSize: "0.875rem",
-                  }}
-                >
-                  {allErrors}
-                </div>
+              {activeView === "dashboard" && renderDashboard()}
+              {activeView === "analytics" && <AnalyticsView weather={weather} />}
+              {activeView === "favorites" && (
+                <FavoritesView city={city} onSelectCity={(name) => handleSearch(name)} />
               )}
-
-              {weather && (
-                <>
-                  <WeatherCard weather={weather} />
-                  <DayWeek weather={weather} />
-                </>
+              {activeView === "settings" && (
+                <SettingsView isDark={isDark} toggleTheme={toggleTheme} />
               )}
             </CenterArea>
 

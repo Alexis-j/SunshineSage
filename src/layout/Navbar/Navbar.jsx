@@ -7,15 +7,19 @@ import {
   NavLink,
   NavLinks,
   NavRight,
-
 } from "./styles";
-import { Menu, Search, User, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 import ThemeToggle from "../../components/ThemeToggle";
-import { useState } from "react";
 
-const Navbar = ({ isSidebarOpen, toggleSidebar, onSearch, isDark, toggleTheme }) => {
+const navItems = [
+  { id: "dashboard", label: "Dashboard" },
+  { id: "analytics", label: "Analytics" },
+  { id: "favorites", label: "Favorites" },
+  { id: "settings", label: "Settings" },
+];
 
+const Navbar = ({ isSidebarOpen, toggleSidebar, isDark, toggleTheme, activeView, onNavigate }) => {
   return (
     <Nav>
       <NavLeft>
@@ -29,10 +33,15 @@ const Navbar = ({ isSidebarOpen, toggleSidebar, onSearch, isDark, toggleTheme })
       </NavLeft>
 
       <NavLinks>
-        <NavLink $active>Dashboard</NavLink>
-        <NavLink>Analytics</NavLink>
-        <NavLink>Favorites</NavLink>
-        <NavLink>Settings</NavLink>
+        {navItems.map((item) => (
+          <NavLink
+            key={item.id}
+            $active={activeView === item.id}
+            onClick={() => onNavigate(item.id)}
+          >
+            {item.label}
+          </NavLink>
+        ))}
       </NavLinks>
 
       <NavRight>

@@ -1,15 +1,13 @@
-import { BarChart3, Calendar, Home, MapPin, Settings } from "lucide-react";
-import { Container, IconItem, Icons, Logo } from "./styles";
+import { BarChart3, Heart, Home, Settings } from "lucide-react";
+import { BottomNav, BottomSection, Container, Divider, IconItem, Icons, Logo } from "./styles";
 
-const navItems = [
-  { icon: Home, label: "Dashboard", active: true },
-  { icon: BarChart3, label: "Analytics" },
-  { icon: MapPin, label: "Locations" },
-  { icon: Calendar, label: "Calendar" },
-  { icon: Settings, label: "Settings" },
+const mainNav = [
+  { id: "dashboard", icon: Home, label: "Dashboard" },
+  { id: "analytics", icon: BarChart3, label: "Analytics" },
+  { id: "favorites", icon: Heart, label: "Favorites" },
 ];
 
-const Sidebar = ({ isDark, isOpen, closeSidebar }) => {
+const Sidebar = ({ isOpen, activeView, onNavigate }) => {
   return (
     <Container $isOpen={isOpen}>
       <Logo>
@@ -17,17 +15,32 @@ const Sidebar = ({ isDark, isOpen, closeSidebar }) => {
       </Logo>
 
       <Icons>
-        {navItems.map((item, i) => (
-          <IconItem key={i} $active={item.active} title={item.label} onClick={closeSidebar}>
+        {mainNav.map((item) => (
+          <IconItem
+            key={item.id}
+            $active={activeView === item.id}
+            title={item.label}
+            onClick={() => onNavigate(item.id)}
+          >
             <item.icon size={22} />
           </IconItem>
         ))}
       </Icons>
 
+      <BottomSection>
+        <Divider />
+        <BottomNav>
+          <IconItem
+            $active={activeView === "settings"}
+            title="Settings"
+            onClick={() => onNavigate("settings")}
+          >
+            <Settings size={22} />
+          </IconItem>
+        </BottomNav>
+      </BottomSection>
     </Container>
   );
 };
 
 export default Sidebar;
-
-
