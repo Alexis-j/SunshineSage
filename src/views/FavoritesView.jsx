@@ -117,21 +117,26 @@ const ActiveBadge = styled.span`
   font-weight: 600;
 `;
 
+const normalize = (fav) =>
+  typeof fav === "string" ? { name: fav, temp: null, max: null, min: null, icon: null } : fav;
+
 const FavoritesView = ({ city, onSelectCity }) => {
   const [favorites, setFavorites] = useLocalStorage("favorites", []);
   const [input, setInput] = useState("");
 
+  const items = favorites.map(normalize);
+
   const addFavorite = () => {
     const name = input.trim();
-    if (name && !favorites.includes(name)) {
-      setFavorites([...favorites, name]);
+    if (name && !items.some((f) => f.name.toLowerCase() === name.toLowerCase())) {
+      setFavorites([...items, { name, temp: null, max: null, min: null, icon: null }]);
       setInput("");
     }
   };
 
   const removeFavorite = (e, name) => {
     e.stopPropagation();
-    setFavorites(favorites.filter((f) => f !== name));
+    setFavorites(items.filter((f) => f.name !== name));
   };
 
   return (
@@ -142,22 +147,22 @@ const FavoritesView = ({ city, onSelectCity }) => {
           Favorite Cities
         </Title>
 
-        {favorites.length === 0 ? (
+        {items.length === 0 ? (
           <EmptyState>
             <MapPin size={32} opacity={0.3} />
             <span>No favorites yet. Add a city to get started.</span>
           </EmptyState>
         ) : (
-          favorites.map((name) => (
-            <FavoriteItem key={name} onClick={() => onSelectCity(name)}>
+          items.map((fav) => (
+            <FavoriteItem key={fav.name} onClick={() => onSelectCity(fav.name)}>
               <CityInfo>
                 <MapPin size={16} />
-                {name}
-                {city && name.toLowerCase() === city.toLowerCase() && (
+                {fav.name}
+                {city && fav.name.toLowerCase() === city.toLowerCase() && (
                   <ActiveBadge>Active</ActiveBadge>
                 )}
               </CityInfo>
-              <RemoveBtn onClick={(e) => removeFavorite(e, name)}>
+              <RemoveBtn onClick={(e) => removeFavorite(e, fav.name)}>
                 <Trash2 size={14} />
               </RemoveBtn>
             </FavoriteItem>

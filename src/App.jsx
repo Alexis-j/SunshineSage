@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import AnalyticsView from "./views/AnalyticsView";
@@ -34,6 +34,7 @@ function App() {
   const [activeView, setActiveView] = useState("dashboard");
   const { coords, error: geoError } = useGeolocation();
   const { weather, error, loading } = useWeather(city);
+  const [favorites, setFavorites] = useLocalStorage("favorites", []);
 
   const allErrors = [error, geoError].filter(Boolean).join(". ");
 
@@ -63,6 +64,30 @@ function App() {
       setCity(`${coords.lat},${coords.lon}`);
     }
   }, [city, coords, setCity]);
+
+  const prevCachedCity = useRef(null);
+
+  useEffect(() => {
+    if (!weather) return;
+    if (prevCachedCity.current === weather.city) return;
+    prevCachedCity.current = weather.city;
+
+    const items = favorites.map((f) =>
+      typeof f === "string" ? { name: f, temp: null, max: null, min: null, icon: null } : f
+    );
+    const idx = items.findIndex(
+      (f) => f.name.toLowerCase() === weather.city.toLowerCase()
+    );
+    if (idx === -1) return;
+    items[idx] = {
+      ...items[idx],
+      temp: weather.temp,
+      max: weather.max,
+      min: weather.min,
+      icon: (weather.icon ?? "").replace("https:", ""),
+    };
+    setFavorites(items);
+  }, [weather, favorites, setFavorites]);
 
   const renderDashboard = () => (
     <>
@@ -134,7 +159,7 @@ function App() {
             </CenterArea>
 
             <RightPanelArea>
-              <RightPanel weather={weather} />
+              <RightPanel weather={weather} onSelectCity={(name) => handleSearch(name)} />
             </RightPanelArea>
           </MainContent>
 
