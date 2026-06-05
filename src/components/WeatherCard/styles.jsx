@@ -5,12 +5,12 @@ export const Card = styled.div`
   justify-content: space-between;
   padding: 2rem;
   border-radius: 25px;
-  width: 100vh;
-  background: rgba(255, 255, 255, 0.05);
+  width: 100%;
   backdrop-filter: blur(20px);
   color: ${({ theme }) => theme.colors.mainText};
-  box-shadow: ${({ theme }) => theme.shadows.card};
   transition: all ${({ theme }) => theme.transitions.default};
+  background: ${({ theme }) => theme.gradients.hourCard};
+  border: 1px solid ${({ theme }) => theme.colors.border};
 
   &:hover {
     transform: translateY(-2px);
@@ -32,22 +32,22 @@ export const CardRight = styled.div`
 `;
 
 export const CityCountry = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.medium};
+  font-size: ${({ theme }) => theme.fontSizes.base};
   color: ${({ theme }) => theme.colors.mainText};
 `;
 
 export const DateText = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.mainText};
 `;
 
 export const Temp = styled.h1`
-  font-size: ${({ theme }) => theme.fontSizes.large};
+  font-size: ${({ theme }) => theme.fontSizes.display};
   color: ${({ theme }) => theme.colors.mainText};
 `;
 
 export const TempRange = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.mainText};
   opacity: 0.7;
 `;
@@ -100,6 +100,6 @@ export const Label = styled.div`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.secondaryText};
   pointer-events: none;
-  font-size: ${({ theme }) => theme.fontSizes.tiny};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   z-index: 2;
 `;

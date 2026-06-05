@@ -12,11 +12,17 @@ export const lightTheme = {
     success: "#4CAF50",
     error: "#EF5350",
     warning: "#FFA726",
+    iconActive: "#182133",
+    iconInactive: "#9E9E9E",
   },
   gradients: {
     thumb: "linear-gradient(180deg, #FFCC89, #D8860B)",
     brand: "linear-gradient(135deg, #752BEC, #9B5FF5)",
     card: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))",
+    hourCard: `
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.7) 0%, transparent 70%),
+      linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(245,247,251,0.9) 50%, rgba(0,0,0,0.01) 100%)
+    `,
   },
   fontSizes: {
     xs: "0.75rem",
@@ -78,11 +84,17 @@ export const darkTheme = {
     success: "#4CAF50",
     error: "#EF5350",
     warning: "#FFA726",
+    iconActive: "#FFFFFF",
+    iconInactive: "#555555",
   },
   gradients: {
     thumb: "linear-gradient(180deg, #444444, #1F1F1F)",
     brand: "linear-gradient(135deg, #752BEC, #9B5FF5)",
     card: "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01))",
+    hourCard: `
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 70%),
+      linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.05) 100%)
+    `,
   },
   fontSizes: {
     xs: "0.75rem",

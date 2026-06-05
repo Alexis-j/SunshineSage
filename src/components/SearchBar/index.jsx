@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
-import { SearchBarWrapper, SearchInput, SearchButton } from "./styles";
+import { Search, MapPin } from "lucide-react";
+import { SearchBarWrapper, SearchInput, SearchButton, LocateButton } from "./styles";
 
-const SearchBarCompact = ({ onSearch }) => {
+const SearchBarCompact = ({ onSearch, onUseLocation }) => {
   const [query, setQuery] = useState("");
 
   const handleSearch = () => {
@@ -20,6 +20,11 @@ const SearchBarCompact = ({ onSearch }) => {
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
       />
+      {onUseLocation && (
+        <LocateButton onClick={onUseLocation} title="Use my location">
+          <MapPin size={16} />
+        </LocateButton>
+      )}
       <SearchButton onClick={handleSearch}>
         <Search size={16} />
       </SearchButton>

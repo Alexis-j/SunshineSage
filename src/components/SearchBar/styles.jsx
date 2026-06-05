@@ -35,6 +35,20 @@ export const SearchInput = styled.input`
   }
 `;
 
+export const LocateButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: ${({ theme }) => theme.spacing.xs};
+  color: ${({ theme }) => theme.colors.secondaryText};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  transition: all ${({ theme }) => theme.transitions.fast};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.brandColor};
+  }
+`;
+
 export const SearchButton = styled.button`
   display: flex;
   align-items: center;

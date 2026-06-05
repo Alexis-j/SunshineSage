@@ -23,7 +23,7 @@ const WeekForecast = ({ week }) => {
 
   return (
     <WeekContainer>
-      <WeekTitle>3-Day Forecast</WeekTitle>
+      <WeekTitle>{week.length}-Day Forecast</WeekTitle>
       <WeekList>
         {days.map((day, i) => (
           <DayRow key={i}>

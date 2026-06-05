@@ -28,17 +28,26 @@ function App() {
   const [isDark, setIsDark] = useState(true);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [city, setCity] = useLocalStorage("city", "");
-  const { coords } = useGeolocation();
+  const { coords, error: geoError } = useGeolocation();
   const { weather, error, loading } = useWeather(city);
+
+  const allErrors = [error, geoError].filter(Boolean).join(". ");
 
   const toggleTheme = () => setIsDark((prev) => !prev);
 
   const handleSearch = (cityName) => setCity(cityName);
 
   const handleUseLocation = () => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setCity(`${pos.coords.latitude},${pos.coords.longitude}`);
-    });
+    if (coords) {
+      setCity(`${coords.lat},${coords.lon}`);
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setCity(`${pos.coords.latitude},${pos.coords.longitude}`);
+        },
+        () => {}
+      );
+    }
   };
 
   useEffect(() => {
@@ -78,7 +87,7 @@ function App() {
 
               {loading && !weather && <Skeleton />}
 
-              {error && (
+              {allErrors && (
                 <div
                   style={{
                     padding: "1rem",
@@ -88,7 +97,7 @@ function App() {
                     fontSize: "0.875rem",
                   }}
                 >
-                  {error}
+                  {allErrors}
                 </div>
               )}
 
