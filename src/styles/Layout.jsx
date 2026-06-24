@@ -2,64 +2,65 @@ import styled from "styled-components";
 
 export const AppContainer = styled.div`
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.primary};
   transition: background ${({ theme }) => theme.transitions.default};
 `;
 
-export const MainContent = styled.div`
-  display: grid;
+export const MainLayout = styled.div`
+  display: flex;
   flex: 1;
-  width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing.md};
-  gap: ${({ theme }) => theme.spacing.md};
-
-  grid-template-areas: "sidebar center rightpanel";
-  grid-template-columns: 80px 1fr 280px;
-  align-items: stretch;
+  padding: 24px;
+  gap: 32px;
+  width: 100%;
 
   @media (max-width: 1024px) {
-    grid-template-areas: "center rightpanel";
-    grid-template-columns: 1fr 280px;
+    padding: 16px;
+    gap: 20px;
   }
 
   @media (max-width: 768px) {
-    grid-template-areas: "center";
-    grid-template-columns: 1fr;
+    padding: 0 12px 24px;
+    gap: 16px;
   }
 `;
 
-export const SidebarArea = styled.aside`
-  grid-area: sidebar;
-  position: sticky;
-  top: 80px;
-
-  @media (max-width: 1024px) {
-    display: none;
-  }
-`;
-
-export const CenterArea = styled.div`
-  grid-area: center;
+export const CenterArea = styled.main`
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
+  gap: 20px;
+  max-width: 680px;
+  margin: 0 auto;
+  padding-top: 32px;
+  min-width: 0;
+
+  @media (max-width: 1024px) {
+    padding-top: 16px;
+    max-width: none;
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 12px;
+    gap: 14px;
+  }
 `;
 
 export const RightPanelArea = styled.aside`
-  grid-area: rightpanel;
+  width: 280px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-  position: sticky;
-  top: 80px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  gap: 24px;
+
+  @media (max-width: 1024px) {
+    width: 220px;
+  }
 
   @media (max-width: 768px) {
-    position: static;
+    display: none;
   }
 `;
